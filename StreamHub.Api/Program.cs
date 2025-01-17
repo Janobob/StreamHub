@@ -1,18 +1,26 @@
 namespace StreamHub.Api;
 
-public class Program
+/// <summary>
+///     The main entry point class for the application.
+/// </summary>
+public static class Program
 {
+    /// <summary>
+    ///     The main entry point class for the application.
+    /// </summary>
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        CreateHostBuilder(args).Build().Run();
+    }
 
-        builder.Services.AddOpenApi();
-
-        var app = builder.Build();
-
-        app.MapOpenApi();
-        app.UseHttpsRedirection();
-
-        app.Run();
+    /// <summary>
+    ///     Creates and configures the web host builder.
+    /// </summary>
+    /// <param name="args">Command-line arguments.</param>
+    /// <returns>The configured web host builder.</returns>
+    private static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

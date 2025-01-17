@@ -4,15 +4,22 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Authors>Jan Werren</Authors>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.1"/>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.0.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
-      <Folder Include="GraphQl\" />
+        <Folder Include="Controllers\"/>
+        <Folder Include="GraphQl\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\StreamHub.Persistence\StreamHub.Persistence.csproj"/>
     </ItemGroup>
 
 </Project>
