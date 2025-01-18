@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using StreamHub.Core.Extensions;
 using StreamHub.Persistence.Contexts;
 
 namespace StreamHub.Api;
@@ -33,6 +35,9 @@ public class Startup
         var connectionString = _configuration.GetConnectionString("DefaultConnection");
         services.AddDbContextPool<StreamHubDbContext>(options =>
             options.UseSqlite(connectionString));
+
+        // Add repositories
+        services.AddRepositories(Assembly.GetExecutingAssembly());
 
         services.AddControllers();
     }

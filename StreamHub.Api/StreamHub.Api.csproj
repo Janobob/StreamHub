@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\StreamHub.Core\StreamHub.Core.csproj"/>
         <ProjectReference Include="..\StreamHub.Persistence\StreamHub.Persistence.csproj"/>
     </ItemGroup>
 

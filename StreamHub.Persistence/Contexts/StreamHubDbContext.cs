@@ -30,11 +30,6 @@ public class StreamHubDbContext(DbContextOptions<StreamHubDbContext> options) : 
     /// </summary>
     public DbSet<Series> Series { get; set; }
 
-    /// <summary>
-    ///     Gets or sets the collection of anime entities in the database.
-    /// </summary>
-    public DbSet<Anime> Animes { get; set; }
-
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

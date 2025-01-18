@@ -37,7 +37,6 @@ public class MediaConfiguration : IEntityTypeConfiguration<Media>
         // Discriminator column for TPH (Table-Per-Hierarchy)
         builder.HasDiscriminator<MediaType>("MediaType")
             .HasValue<Movie>(MediaType.Movie)
-            .HasValue<Series>(MediaType.Series)
-            .HasValue<Anime>(MediaType.Anime);
+            .HasValue<Series>(MediaType.Series);
     }
 }
