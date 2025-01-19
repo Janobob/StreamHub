@@ -15,12 +15,18 @@ public class MediaConfiguration : IEntityTypeConfiguration<Media>
     {
         builder.HasKey(m => m.Id);
 
+        builder.Property(m => m.TheTvdbId)
+            .IsRequired();
+
         builder.Property(m => m.Title)
             .IsRequired()
             .HasMaxLength(200);
 
         builder.Property(m => m.Description)
             .HasMaxLength(2000);
+
+        builder.Property(m => m.Studio)
+            .HasMaxLength(200);
 
         builder.Property(m => m.Path)
             .IsRequired()
@@ -38,5 +44,10 @@ public class MediaConfiguration : IEntityTypeConfiguration<Media>
         builder.HasDiscriminator<MediaType>("MediaType")
             .HasValue<Movie>(MediaType.Movie)
             .HasValue<Series>(MediaType.Series);
+
+        builder.Property(s => s.Status)
+            .HasConversion<string>() // Store enum as string
+            .IsRequired()
+            .HasDefaultValue(MediaStatus.Released);
     }
 }

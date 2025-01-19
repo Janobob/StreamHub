@@ -11,6 +11,11 @@ public enum MediaStatus
     Continuing,
 
     /// <summary>
+    ///     Indicates that the media has been released and is available for viewing.
+    /// </summary>
+    Released,
+
+    /// <summary>
     ///     Indicates that the media has finished releasing all episodes or content.
     /// </summary>
     Ended,

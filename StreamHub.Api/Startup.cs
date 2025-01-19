@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using StreamHub.Core.Extensions;
 using StreamHub.Persistence.Contexts;
@@ -37,7 +36,7 @@ public class Startup
             options.UseSqlite(connectionString));
 
         // Add repositories
-        services.AddRepositories(Assembly.GetExecutingAssembly());
+        services.AddRepositories();
 
         services.AddControllers();
     }

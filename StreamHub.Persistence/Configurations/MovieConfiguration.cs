@@ -13,5 +13,8 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
         builder.HasBaseType<Media>(); // Inherits from Media
+
+        builder.Property(m => m.Duration)
+            .IsRequired();
     }
 }

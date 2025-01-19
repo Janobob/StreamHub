@@ -16,6 +16,11 @@ public abstract class Media
     public int Id { get; set; }
 
     /// <summary>
+    ///     Gets or sets the unique identifier for the media entity from The tvdb Database
+    /// </summary>
+    public int TheTvdbId { get; set; }
+
+    /// <summary>
     ///     Gets or sets the title of the media. This field is required.
     /// </summary>
     public required string Title { get; set; }
@@ -31,6 +36,11 @@ public abstract class Media
     public string? Description { get; set; }
 
     /// <summary>
+    ///     Gets or sets an optional studio of the media.
+    /// </summary>
+    public string? Studio { get; set; }
+
+    /// <summary>
     ///     Gets or sets the storage path where the media file is located.
     /// </summary>
     public required string Path { get; set; }
@@ -41,7 +51,7 @@ public abstract class Media
     public int MediaLibraryId { get; set; }
 
     /// <summary>
-    ///     Navigation property to the media library that this media belongs to.
+    ///     Gets or sets the navigation property to the media library that this media belongs to.
     /// </summary>
     public required MediaLibrary MediaLibrary { get; set; }
 
@@ -50,4 +60,9 @@ public abstract class Media
     ///     This property is mapped to the discriminator column in the database.
     /// </summary>
     public virtual MediaType MediaType { get; init; }
+
+    /// <summary>
+    ///     Gets or sets the status of the media (e.g., continuing, ended).
+    /// </summary>
+    public MediaStatus Status { get; set; }
 }

@@ -1,5 +1,6 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using StreamHub.Persistence.Entities;
+using StreamHub.Persistence.Repositories;
 using StreamHub.Persistence.Repositories.Contracts;
 
 namespace StreamHub.Core.Extensions;
@@ -13,18 +14,13 @@ public static class ServiceCollectionExtensions
     ///     Registers all repository implementations as scoped services.
     /// </summary>
     /// <param name="services">The service collection.</param>
-    /// <param name="assembly">The assembly to scan for repositories.</param>
-    public static void AddRepositories(this IServiceCollection services, Assembly assembly)
+    public static void AddRepositories(this IServiceCollection services)
     {
-        var repositoryTypes = assembly.GetTypes()
-            .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces()
-                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IGenericRepository<>)));
-
-        foreach (var type in repositoryTypes)
-        {
-            var interfaceType = type.GetInterfaces()
-                .First(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IGenericRepository<>));
-            services.AddScoped(interfaceType, type);
-        }
+        services.AddScoped<IMediaLibraryRepository, MediaLibraryRepository>();
+        services.AddScoped<IMediaRepository<Media>, MediaRepository>();
+        services.AddScoped<IMediaRepository<Series>, SeriesRepository>();
+        services.AddScoped<IMediaRepository<Movie>, MovieRepository>();
+        services.AddScoped<IMovieRepository, MovieRepository>();
+        services.AddScoped<ISeriesRepository, SeriesRepository>();
     }
 }

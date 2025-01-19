@@ -19,5 +19,10 @@ public class SeriesConfiguration : IEntityTypeConfiguration<Series>
             .HasConversion<string>() // Store enum as string
             .IsRequired()
             .HasDefaultValue(MediaStatus.Continuing);
+
+        builder.HasMany(s => s.Seasons)
+            .WithOne(s => s.Series)
+            .HasForeignKey(s => s.SeriesId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

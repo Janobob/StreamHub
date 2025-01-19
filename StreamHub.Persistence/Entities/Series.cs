@@ -1,6 +1,4 @@
-﻿using StreamHub.Persistence.Enums;
-
-namespace StreamHub.Persistence.Entities;
+﻿namespace StreamHub.Persistence.Entities;
 
 /// <summary>
 ///     Represents a series entity, inheriting from the base media class.
@@ -8,7 +6,7 @@ namespace StreamHub.Persistence.Entities;
 public class Series : Movie
 {
     /// <summary>
-    ///     Gets or sets the status of the series (e.g., continuing, ended).
+    ///     Gets or sets the list of seasons for the series.
     /// </summary>
-    public MediaStatus Status { get; set; }
+    public List<Season> Seasons { get; set; } = [];
 }
