@@ -27,6 +27,9 @@ public class Startup
     /// <param name="services">The collection of services to configure.</param>
     public void ConfigureServices(IServiceCollection services)
     {
+        // Add Configurations
+        services.AddConfigurations(_configuration);
+
         // Add OpenAPI
         services.AddOpenApi();
 
@@ -38,6 +41,10 @@ public class Startup
         // Add repositories
         services.AddRepositories();
 
+        // Add Metadata providers and services
+        services.AddMetadataProvidersAndServices();
+
+        // Add API controllers
         services.AddControllers();
     }
 

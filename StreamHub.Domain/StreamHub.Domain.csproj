@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\StreamHub.Persistence\StreamHub.Persistence.csproj"/>
+    </ItemGroup>
+
 </Project>

@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using StreamHub.Domain.MetaData.Configurations;
+using StreamHub.Domain.MetaData.Services;
+using StreamHub.Domain.MetaData.Services.Contracts;
 using StreamHub.Persistence.Entities;
 using StreamHub.Persistence.Repositories;
 using StreamHub.Persistence.Repositories.Contracts;
@@ -11,10 +15,29 @@ namespace StreamHub.Core.Extensions;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
+    ///     Registers all configurations.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <returns>
+    ///     The same <see cref="IServiceCollection" /> instance so that additional calls can be chained.
+    /// </returns>
+    public static IServiceCollection AddConfigurations(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<MetaDataProvidersConfiguration>(
+            configuration.GetSection(MetaDataProvidersConfiguration.Key));
+
+        return services;
+    }
+
+    /// <summary>
     ///     Registers all repository implementations as scoped services.
     /// </summary>
     /// <param name="services">The service collection.</param>
-    public static void AddRepositories(this IServiceCollection services)
+    /// <returns>
+    ///     The same <see cref="IServiceCollection" /> instance so that additional calls can be chained.
+    /// </returns>
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IMediaLibraryRepository, MediaLibraryRepository>();
         services.AddScoped<IMediaRepository<Media>, MediaRepository>();
@@ -23,5 +46,22 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<ISeriesRepository, SeriesRepository>();
         services.AddScoped<IEpisodeRepository, EpisodeRepository>();
+
+        return services;
+    }
+
+    /// <summary>
+    ///     Registers all metadata providers and services.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>
+    ///     The same <see cref="IServiceCollection" /> instance so that additional calls can be chained.
+    /// </returns>
+    public static IServiceCollection AddMetadataProvidersAndServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IMetaDataProviderResolver, MetaDataProviderResolver>();
+        services.AddHttpClient<IMetaDataProviderService, TvdbMetaDataProviderService>();
+
+        return services;
     }
 }
