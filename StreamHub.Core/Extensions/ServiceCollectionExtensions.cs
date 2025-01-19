@@ -22,5 +22,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IMediaRepository<Movie>, MovieRepository>();
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<ISeriesRepository, SeriesRepository>();
+        services.AddScoped<IEpisodeRepository, EpisodeRepository>();
     }
 }

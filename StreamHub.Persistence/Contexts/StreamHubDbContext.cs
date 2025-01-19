@@ -35,6 +35,11 @@ public class StreamHubDbContext(DbContextOptions<StreamHubDbContext> options) : 
     /// </summary>
     public DbSet<Season> Seasons { get; set; }
 
+    /// <summary>
+    ///     Gets or sets the collection of episode entities in the database.
+    /// </summary>
+    public DbSet<Episode> Episodes { get; set; }
+
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

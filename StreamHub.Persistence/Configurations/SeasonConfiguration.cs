@@ -35,5 +35,9 @@ public class SeasonConfiguration : IEntityTypeConfiguration<Season>
         builder.HasOne(s => s.Series)
             .WithMany(s => s.Seasons)
             .HasForeignKey(s => s.SeriesId);
+
+        builder.HasMany(s => s.Episodes)
+            .WithOne(s => s.Season)
+            .HasForeignKey(s => s.SeasonId);
     }
 }

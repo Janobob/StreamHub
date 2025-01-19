@@ -45,4 +45,9 @@ public class Season
     ///     Gets or sets the navigation property to the series that this season belongs to.
     /// </summary>
     public required Series Series { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the list of episodes in the season.
+    /// </summary>
+    public List<Episode> Episodes { get; set; } = [];
 }

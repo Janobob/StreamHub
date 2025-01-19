@@ -7,7 +7,7 @@ namespace StreamHub.Persistence.Repositories;
 /// <summary>
 ///     Generic repository implementation for basic CRUD operations.
 /// </summary>
-/// <param name="dbContext">The database context used for data access operations.</param>
+/// <param name="dbContext">The database context used for accessing the database.</param>
 /// <typeparam name="TEntity">The type of the entity.</typeparam>
 public abstract class GenericRepository<TEntity>(StreamHubDbContext dbContext) : IGenericRepository<TEntity>
     where TEntity : class
