@@ -1,5 +1,4 @@
-﻿using StreamHub.Domain.MetaData.Configurations;
-using StreamHub.Domain.MetaData.Models;
+﻿using StreamHub.Domain.MetaData.Models;
 using StreamHub.Persistence.Enums;
 
 namespace StreamHub.Domain.MetaData.Services.Contracts;
@@ -13,11 +12,6 @@ public interface IMetaDataProviderService
     ///     Gets the name of the metadata provider.
     /// </summary>
     string Name { get; }
-
-    /// <summary>
-    ///     Gets the provider settings.
-    /// </summary>
-    MetaDataProviderSettings ProviderSettings { get; init; }
 
     #region Metadata
 

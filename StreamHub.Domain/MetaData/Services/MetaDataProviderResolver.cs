@@ -8,23 +8,38 @@ namespace StreamHub.Domain.MetaData.Services;
 /// <summary>
 ///     Resolves meta data providers and their settings.
 /// </summary>
-/// <param name="providers"></param>
-/// <param name="providersConfiguration"></param>
+/// <param name="providers">
+///     A collection of <see cref="IMetaDataProviderService" /> used to resolve meta data providers.
+/// </param>
+/// <param name="providersConfiguration">
+///     Configuration options for meta data providers, represented by <see cref="MetaDataConfiguration" />.
+/// </param>
 public class MetaDataProviderResolver(
     IEnumerable<IMetaDataProviderService> providers,
-    IOptions<MetaDataProvidersConfiguration> providersConfiguration)
+    IOptions<MetaDataConfiguration> providersConfiguration)
     : IMetaDataProviderResolver
 {
     /// <inheritdoc />
-    public IEnumerable<IMetaDataProviderService> GetAllProviders()
+    public IEnumerable<IMetaDataProviderService> GetAllProviderServices()
     {
         return providers;
     }
 
     /// <inheritdoc />
-    /// <exception cref="ArgumentException">Thrown when the provider with the specified name is not found.</exception>
-    public IMetaDataProviderService GetProviderByName(string name)
+    public IEnumerable<MetaDataProvider> GetAllProvider()
     {
+        // return all available meta data providers
+        return providersConfiguration.Value.Providers.Select(p => new MetaDataProvider
+        {
+            Name = p.Name
+        });
+    }
+
+    /// <inheritdoc />
+    /// <exception cref="ArgumentException">Thrown when the provider with the specified name is not found.</exception>
+    public IMetaDataProviderService GetProviderServiceByName(string name)
+    {
+        // get provider by name
         var provider = providers.FirstOrDefault(p => p.Name == name);
 
         // throw exception if provider not found
@@ -37,15 +52,16 @@ public class MetaDataProviderResolver(
     }
 
     /// <inheritdoc />
-    public IEnumerable<MetaDataProviderSettings> GetAllProviderSettings()
+    public IEnumerable<MetaDataProviderConfiguration> GetAllProviderSettings()
     {
         return providersConfiguration.Value.Providers;
     }
 
     /// <inheritdoc />
     /// <exception cref="ArgumentException">Thrown when the provider with the specified name is not found.</exception>
-    public MetaDataProviderSettings GetProviderSettingsByName(string name)
+    public MetaDataProviderConfiguration GetProviderSettingsByName(string name)
     {
+        // get provider settings by name
         var settings = providersConfiguration.Value.Providers.FirstOrDefault(p => p.Name == name);
 
         // throw exception if provider settings not found

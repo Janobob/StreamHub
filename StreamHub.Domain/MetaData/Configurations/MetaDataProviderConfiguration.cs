@@ -3,7 +3,7 @@
 /// <summary>
 ///     Configuration item for a meta data provider.
 /// </summary>
-public abstract class MetaDataProviderSettings
+public sealed class MetaDataProviderConfiguration
 {
     /// <summary>
     ///     Gets or sets the name of the meta data provider.

@@ -1,4 +1,5 @@
-﻿using StreamHub.Domain.MetaData.Configurations;
+﻿using Microsoft.Extensions.Options;
+using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Models;
 using StreamHub.Domain.MetaData.Services.Contracts;
 using StreamHub.Persistence.Enums;
@@ -10,29 +11,24 @@ namespace StreamHub.Domain.MetaData.Services;
 /// </summary>
 public class TvdbMetaDataProviderService : IMetaDataProviderService
 {
-    private readonly HttpClient _http;
+    private readonly HttpClient _httpClient;
+    private readonly IOptions<MetaDataConfiguration> _metaDataConfiguration;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="TvdbMetaDataProviderService" /> class.
     /// </summary>
-    /// <param name="metaDataProviderResolver">
-    ///     The resolver used to retrieve metadata provider settings based on the provider's name.
-    /// </param>
-    /// <param name="http">
+    /// <param name="httpClient">
     ///     The <see cref="HttpClient" /> instance used to make HTTP requests to the metadata provider's API.
     /// </param>
-    public TvdbMetaDataProviderService(IMetaDataProviderResolver metaDataProviderResolver, HttpClient http)
+    /// <param name="metaDataConfiguration">The <see cref="MetaDataConfiguration" /> options for metadata providers.</param>
+    public TvdbMetaDataProviderService(HttpClient httpClient, IOptions<MetaDataConfiguration> metaDataConfiguration)
     {
-        _http = http;
-        ProviderSettings = metaDataProviderResolver.GetProviderSettingsByName(Name);
-        _http.BaseAddress = new Uri(ProviderSettings.Url);
+        _httpClient = httpClient;
+        _metaDataConfiguration = metaDataConfiguration;
     }
 
     /// <inheritdoc />
     public string Name => "Tvdb";
-
-    /// <inheritdoc />
-    public MetaDataProviderSettings ProviderSettings { get; init; }
 
     /// <inheritdoc />
     public Task<IEnumerable<MediaMetaDataSearchResult>> SearchMediaAsync(string query, int limit = 10)

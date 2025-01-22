@@ -24,8 +24,8 @@ public static class ServiceCollectionExtensions
     /// </returns>
     public static IServiceCollection AddConfigurations(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<MetaDataProvidersConfiguration>(
-            configuration.GetSection(MetaDataProvidersConfiguration.Key));
+        services.Configure<MetaDataConfiguration>(
+            configuration.GetSection(MetaDataConfiguration.Key));
 
         return services;
     }
@@ -59,8 +59,8 @@ public static class ServiceCollectionExtensions
     /// </returns>
     public static IServiceCollection AddMetadataProvidersAndServices(this IServiceCollection services)
     {
-        services.AddSingleton<IMetaDataProviderResolver, MetaDataProviderResolver>();
         services.AddHttpClient<IMetaDataProviderService, TvdbMetaDataProviderService>();
+        services.AddScoped<IMetaDataProviderResolver, MetaDataProviderResolver>();
 
         return services;
     }

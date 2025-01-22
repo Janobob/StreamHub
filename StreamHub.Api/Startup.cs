@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using StreamHub.Core.Extensions;
+using StreamHub.Domain.MetaData.Models;
+using StreamHub.Domain.MetaData.Requests;
 using StreamHub.Persistence.Contexts;
 
 namespace StreamHub.Api;
@@ -43,6 +46,12 @@ public class Startup
 
         // Add Metadata providers and services
         services.AddMetadataProvidersAndServices();
+
+        // Add MediatR
+        services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()); });
+        services
+            .AddTransient<IRequestHandler<GetMetaDataProvidersRequest, IEnumerable<MetaDataProvider>>,
+                GetMetaDataProvidersRequestHandler>();
 
         // Add API controllers
         services.AddControllers();
