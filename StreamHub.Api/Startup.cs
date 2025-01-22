@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using StreamHub.Api.Middlewares;
 using StreamHub.Core.Extensions;
 using StreamHub.Domain.MetaData.Models;
 using StreamHub.Domain.MetaData.Requests;
@@ -72,6 +73,8 @@ public class Startup
         // Middlewares
         app.UseHttpsRedirection();
         app.UseRouting();
+        // TODO: use Serilog or check middleware from swiss post
+        app.UseMiddleware<RequestLoggingMiddleware>();
 
         // Endpoints
         app.UseEndpoints(endpoints =>
