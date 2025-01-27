@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
+using StreamHub.Api.GraphQl.Queries;
 using StreamHub.Api.Middlewares;
 using StreamHub.Core.Extensions;
 using StreamHub.Persistence.Contexts;
@@ -75,6 +76,12 @@ public class Startup
 
         // Add API controllers
         services.AddControllers();
+
+        // Add GraphQL
+        services.AddGraphQLServer()
+            .AddQueryType<Query>()
+            .AddTypeExtension<MetaDataQuery>()
+            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
     }
 
     /// <summary>
@@ -101,6 +108,8 @@ public class Startup
             endpoints.MapOpenApi();
             endpoints.MapScalarApiReference();
             endpoints.MapControllers();
+            endpoints.MapGraphQL();
+            endpoints.MapGraphQLWebSocket();
         });
     }
 }

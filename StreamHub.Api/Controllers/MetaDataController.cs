@@ -47,7 +47,7 @@ public class MetaDataController(
     [ProducesResponseType<MetaDataProvider>(StatusCodes.Status200OK, "application/json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     public async Task<ActionResult<MetaDataProvider>> GetMetaDataProvider(
-        [Description("The name of the metadata provider")] [Required] [DefaultValue("Tvdb")]
+        [Description("The name of the metadata provider")] [Required] [System.ComponentModel.DefaultValue("Tvdb")]
         string name)
     {
         // TODO: change to use the response model with the description for openapi

@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="14.3.0"/>
         <PackageReference Include="MediatR" Version="12.4.1"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.1"/>
@@ -15,7 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="GraphQl\"/>
         <Folder Include="Models\"/>
     </ItemGroup>
 
@@ -23,5 +23,10 @@
         <ProjectReference Include="..\StreamHub.Core\StreamHub.Core.csproj"/>
         <ProjectReference Include="..\StreamHub.Persistence\StreamHub.Persistence.csproj"/>
     </ItemGroup>
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
 
 </Project>
