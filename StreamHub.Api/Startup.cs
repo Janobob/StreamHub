@@ -37,7 +37,24 @@ public class Startup
         {
             options.AddOperationTransformer((operation, context, cancellationToken) =>
             {
-                operation.Responses.Add("500", new OpenApiResponse { Description = "Internal server error" });
+                operation.Responses.Add("500", new OpenApiResponse
+                {
+                    Description = "Internal server error",
+                    Content = new Dictionary<string, OpenApiMediaType>
+                    {
+                        ["application/json"] = new()
+                        {
+                            Schema = new OpenApiSchema
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.Schema,
+                                    Id = "ProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                });
                 return Task.CompletedTask;
             });
         });

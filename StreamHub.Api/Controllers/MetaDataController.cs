@@ -30,8 +30,9 @@ public class MetaDataController(
     [ProducesResponseType<IEnumerable<MetaDataProvider>>(StatusCodes.Status200OK, "application/json")]
     public async Task<ActionResult<IEnumerable<MetaDataProvider>>> GetMetaDataProviders()
     {
-        // TODO: change to use the response model with the description for openapi
-        return Ok(await mediator.Send(new GetMetaDataProvidersRequest()));
+        var result = await mediator.Send(new GetMetaDataProvidersRequest());
+
+        return result.ToActionResult(HttpContext, ProblemDetailsFactory);
     }
 
     /// <summary>

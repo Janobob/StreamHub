@@ -27,13 +27,15 @@ public class MetaDataProviderResolver(
     }
 
     /// <inheritdoc />
-    public IEnumerable<MetaDataProvider> GetAllProviders()
+    public Result<IEnumerable<MetaDataProvider>> GetAllProviders()
     {
         // return all available meta data providers
-        return providersConfiguration.Value.Providers.Select(p => new MetaDataProvider
-        {
-            Name = p.Name
-        });
+        return Result<IEnumerable<MetaDataProvider>>.Success(providersConfiguration.Value.Providers
+            .Select(p =>
+                new MetaDataProvider
+                {
+                    Name = p.Name
+                }));
     }
 
     /// <inheritdoc />
