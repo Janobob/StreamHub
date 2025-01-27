@@ -1,4 +1,5 @@
-﻿using StreamHub.Domain.MetaData.Configurations;
+﻿using StreamHub.Common.Types;
+using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Models;
 
 namespace StreamHub.Domain.MetaData.Services.Contracts;
@@ -18,7 +19,18 @@ public interface IMetaDataProviderResolver
     ///     Get all metadata providers.
     /// </summary>
     /// <returns>An enumerable collection of all metadata provider.</returns>
-    IEnumerable<MetaDataProvider> GetAllProvider();
+    IEnumerable<MetaDataProvider> GetAllProviders();
+
+    /// <summary>
+    ///     Get metadata provider by name.
+    /// </summary>
+    /// <param name="name">
+    ///     The name of the metadata provider.
+    /// </param>
+    /// <returns>
+    ///     The metadata provider with the specified name.
+    /// </returns>
+    Result<MetaDataProvider> GetProviderByName(string name);
 
     /// <summary>
     ///     Get metadata provider service by name.

@@ -29,7 +29,8 @@ public class GetMetaDataProvidersRequestHandler(IMetaDataProviderResolver metaDa
     public Task<IEnumerable<MetaDataProvider>> Handle(GetMetaDataProvidersRequest request,
         CancellationToken cancellationToken)
     {
+        // TODO: change to use Result<T>
         // Return all available meta data providers
-        return Task.FromResult(metaDataProviderResolver.GetAllProvider());
+        return Task.FromResult(metaDataProviderResolver.GetAllProviders());
     }
 }

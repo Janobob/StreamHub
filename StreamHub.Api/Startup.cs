@@ -1,10 +1,8 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using StreamHub.Api.Middlewares;
 using StreamHub.Core.Extensions;
-using StreamHub.Domain.MetaData.Models;
-using StreamHub.Domain.MetaData.Requests;
 using StreamHub.Persistence.Contexts;
 
 namespace StreamHub.Api;
@@ -35,7 +33,14 @@ public class Startup
         services.AddConfigurations(_configuration);
 
         // Add OpenAPI
-        services.AddOpenApi();
+        services.AddOpenApi(options =>
+        {
+            options.AddOperationTransformer((operation, context, cancellationToken) =>
+            {
+                operation.Responses.Add("500", new OpenApiResponse { Description = "Internal server error" });
+                return Task.CompletedTask;
+            });
+        });
 
         // Add DbContext with pooling and SQLite
         var connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -49,10 +54,7 @@ public class Startup
         services.AddMetadataProvidersAndServices();
 
         // Add MediatR
-        services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()); });
-        services
-            .AddTransient<IRequestHandler<GetMetaDataProvidersRequest, IEnumerable<MetaDataProvider>>,
-                GetMetaDataProvidersRequestHandler>();
+        services.AddMediatRServices();
 
         // Add API controllers
         services.AddControllers();

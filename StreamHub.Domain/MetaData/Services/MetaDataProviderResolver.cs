@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using StreamHub.Common.Types;
 using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Models;
 using StreamHub.Domain.MetaData.Services.Contracts;
@@ -26,7 +27,7 @@ public class MetaDataProviderResolver(
     }
 
     /// <inheritdoc />
-    public IEnumerable<MetaDataProvider> GetAllProvider()
+    public IEnumerable<MetaDataProvider> GetAllProviders()
     {
         // return all available meta data providers
         return providersConfiguration.Value.Providers.Select(p => new MetaDataProvider
@@ -36,19 +37,22 @@ public class MetaDataProviderResolver(
     }
 
     /// <inheritdoc />
-    /// <exception cref="ArgumentException">Thrown when the provider with the specified name is not found.</exception>
-    public IMetaDataProviderService GetProviderServiceByName(string name)
+    public Result<MetaDataProvider> GetProviderByName(string name)
     {
-        // get provider by name
-        var provider = providers.FirstOrDefault(p => p.Name == name);
+        // get provider configuration by name
+        var config = providersConfiguration.Value.Providers.FirstOrDefault(p => p.Name == name);
 
         // throw exception if provider not found
-        if (provider == default)
+        if (config == default)
         {
-            throw new ArgumentException($"Provider with name '{name}' not found.");
+            var ex = new ArgumentException($"Provider with name '{name}' not found.");
+            return Result<MetaDataProvider>.Failure(ex);
         }
 
-        return provider;
+        return Result<MetaDataProvider>.Success(new MetaDataProvider
+        {
+            Name = config.Name
+        });
     }
 
     /// <inheritdoc />
@@ -71,5 +75,21 @@ public class MetaDataProviderResolver(
         }
 
         return settings;
+    }
+
+    /// <inheritdoc />
+    /// <exception cref="ArgumentException">Thrown when the provider with the specified name is not found.</exception>
+    public IMetaDataProviderService GetProviderServiceByName(string name)
+    {
+        // get provider by name
+        var provider = providers.FirstOrDefault(p => p.Name == name);
+
+        // throw exception if provider not found
+        if (provider == default)
+        {
+            throw new ArgumentException($"Provider with name '{name}' not found.");
+        }
+
+        return provider;
     }
 }

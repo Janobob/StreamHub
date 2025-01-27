@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using StreamHub.Core.MediatR;
 using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Services;
 using StreamHub.Domain.MetaData.Services.Contracts;
@@ -61,6 +64,28 @@ public static class ServiceCollectionExtensions
     {
         services.AddHttpClient<IMetaDataProviderService, TvdbMetaDataProviderService>();
         services.AddScoped<IMetaDataProviderResolver, MetaDataProviderResolver>();
+
+        return services;
+    }
+
+    /// <summary>
+    ///     Registers MediatR services.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>
+    ///     The same <see cref="IServiceCollection" /> instance so that additional calls can be chained.
+    /// </returns>
+    public static IServiceCollection AddMediatRServices(this IServiceCollection services)
+    {
+        // Register all MediatR services from the current domain assemblies
+        services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()); });
+
+        // Decorate the IMediator service with a logging decorator
+        services.Decorate<IMediator>((inner, provider) =>
+        {
+            var logger = provider.GetRequiredService<ILogger<LoggingMediator>>();
+            return new LoggingMediator(inner, logger);
+        });
 
         return services;
     }

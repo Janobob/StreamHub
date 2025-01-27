@@ -22,6 +22,13 @@ public class RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggi
     /// </returns>
     public async Task InvokeAsync(HttpContext context)
     {
+        // only log requests to the API
+        if (!context.Request.Path.StartsWithSegments("/api"))
+        {
+            await next(context);
+            return;
+        }
+
         // Log request details
         logger.LogInformation("Request: {Method} {Path}",
             context.Request.Method, context.Request.Path);

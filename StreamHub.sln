@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Domain", "StreamH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Persistence", "StreamHub.Persistence\StreamHub.Persistence.csproj", "{A6D4A194-487F-4E32-86C0-019A8E514E93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Common", "StreamHub.Common\StreamHub.Common.csproj", "{81F7148E-AE7A-4BB5-84CE-7997EFA35C47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{A6D4A194-487F-4E32-86C0-019A8E514E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6D4A194-487F-4E32-86C0-019A8E514E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6D4A194-487F-4E32-86C0-019A8E514E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81F7148E-AE7A-4BB5-84CE-7997EFA35C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F7148E-AE7A-4BB5-84CE-7997EFA35C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81F7148E-AE7A-4BB5-84CE-7997EFA35C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F7148E-AE7A-4BB5-84CE-7997EFA35C47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
