@@ -1,6 +1,7 @@
-﻿using System.Text.Json;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace StreamHub.Core.MediatR;
 
@@ -11,19 +12,30 @@ namespace StreamHub.Core.MediatR;
 /// <param name="logger">The logger instance used for logging.</param>
 public class LoggingMediator(IMediator inner, ILogger<LoggingMediator> logger) : IMediator
 {
+    private readonly JsonSerializerSettings _jsonSettings = new()
+    {
+        Formatting = Formatting.None,
+        NullValueHandling = NullValueHandling.Ignore,
+        DefaultValueHandling = DefaultValueHandling.Ignore,
+        ContractResolver = new DefaultContractResolver
+        {
+            NamingStrategy = new CamelCaseNamingStrategy()
+        }
+    };
+
     /// <inheritdoc />
     public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request,
         CancellationToken cancellationToken = new())
     {
         logger.LogInformation("Sending request: {RequestName} with data: {RequestJson}",
             request.GetType().Name,
-            JsonSerializer.Serialize(request));
+            JsonConvert.SerializeObject(request, _jsonSettings));
 
         var response = await inner.Send(request, cancellationToken);
 
         logger.LogInformation("Request processed: {RequestName} with response: {ResponseJson}",
             request.GetType().Name,
-            JsonSerializer.Serialize(response));
+            JsonConvert.SerializeObject(response, _jsonSettings));
 
         return response;
     }
@@ -33,7 +45,7 @@ public class LoggingMediator(IMediator inner, ILogger<LoggingMediator> logger) :
     {
         logger.LogInformation("Sending request: {RequestName} with data: {RequestJson}",
             request.GetType().Name,
-            JsonSerializer.Serialize(request));
+            JsonConvert.SerializeObject(request, _jsonSettings));
 
         return inner.Send(request, cancellationToken);
     }
@@ -43,7 +55,7 @@ public class LoggingMediator(IMediator inner, ILogger<LoggingMediator> logger) :
     {
         logger.LogInformation("Sending request: {RequestName} with data: {RequestJson}",
             request.GetType().Name,
-            JsonSerializer.Serialize(request));
+            JsonConvert.SerializeObject(request, _jsonSettings));
 
         return inner.Send(request, cancellationToken);
     }
@@ -54,7 +66,7 @@ public class LoggingMediator(IMediator inner, ILogger<LoggingMediator> logger) :
     {
         logger.LogInformation("Creating stream for request: {RequestName} with data: {RequestJson}",
             request.GetType().Name,
-            JsonSerializer.Serialize(request));
+            JsonConvert.SerializeObject(request, _jsonSettings));
 
         return inner.CreateStream(request, cancellationToken);
     }
@@ -64,7 +76,7 @@ public class LoggingMediator(IMediator inner, ILogger<LoggingMediator> logger) :
     {
         logger.LogInformation("Creating stream for request: {RequestName} with data: {RequestJson}",
             request.GetType().Name,
-            JsonSerializer.Serialize(request));
+            JsonConvert.SerializeObject(request, _jsonSettings));
 
         return inner.CreateStream(request, cancellationToken);
     }
@@ -74,7 +86,7 @@ public class LoggingMediator(IMediator inner, ILogger<LoggingMediator> logger) :
     {
         logger.LogInformation("Publishing notification: {NotificationName} with data: {NotificationJson}",
             notification.GetType().Name,
-            JsonSerializer.Serialize(notification));
+            JsonConvert.SerializeObject(notification, _jsonSettings));
 
         return inner.Publish(notification, cancellationToken);
     }
@@ -85,7 +97,7 @@ public class LoggingMediator(IMediator inner, ILogger<LoggingMediator> logger) :
     {
         logger.LogInformation("Publishing notification: {NotificationName} with data: {NotificationJson}",
             typeof(TNotification).Name,
-            JsonSerializer.Serialize(notification));
+            JsonConvert.SerializeObject(notification, _jsonSettings));
 
         return inner.Publish(notification, cancellationToken);
     }

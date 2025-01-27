@@ -7,11 +7,7 @@ namespace StreamHub.Domain.MetaData.Requests;
 /// <summary>
 ///     Request to get a meta data provider by name.
 /// </summary>
-/// <param name="name">The name of the metadata provider to retrieve.</param>
-public class GetMetaDataProviderRequest(string name) : IRequest<Result<MetaDataProvider>>
+/// <param name="Name">The name of the metadata provider to retrieve.</param>
+public record GetMetaDataProviderRequest(string Name) : IRequest<Result<MetaDataProvider>>
 {
-    /// <summary>
-    ///     Gets the name of the metadata provider to retrieve.
-    /// </summary>
-    public string Name { get; init; } = name;
 }
