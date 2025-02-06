@@ -89,8 +89,11 @@ public class Startup
     /// </summary>
     /// <param name="app">The application builder.</param>
     /// <param name="env">The web host environment.</param>
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    /// <param name="logger">The logger instance used to log runtime and environment information.</param>
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
     {
+        logger.LogRuntimeAndEnvironmentInformation();
+
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
