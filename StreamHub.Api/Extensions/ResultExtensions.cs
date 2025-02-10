@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -82,5 +83,58 @@ public static class ResultExtensions
                 .SetMessage(result.Exception?.Message ?? "An unexpected error occurred.")
                 .SetCode("UNEXPECTED_ERROR")
                 .Build());
+    }
+
+    /// <summary>
+    ///     Maps the value inside a successful <see cref="Result{TSource}" /> to a new type
+    ///     <typeparamref name="TDestination" />
+    ///     using AutoMapper. If the result is a failure, the failure is propagated unchanged.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the original value.</typeparam>
+    /// <typeparam name="TDestination">The type to map the value to.</typeparam>
+    /// <param name="result">The result containing the value to transform.</param>
+    /// <param name="mapper">The AutoMapper instance used for mapping.</param>
+    /// <returns>
+    ///     A new <see cref="Result{TDestination}" /> containing the mapped value if the operation succeeded,
+    ///     or the original failure if the operation failed.
+    /// </returns>
+    public static Common.Types.Result<TDestination> Map<TSource, TDestination>(
+        this Common.Types.Result<TSource> result,
+        IMapper mapper)
+    {
+        return result.IsSuccess
+            ? Common.Types.Result<TDestination>.Success(mapper.Map<TDestination>(result.Value!))
+            : Common.Types.Result<TDestination>.Failure(result.Exception!);
+    }
+
+    /// <summary>
+    ///     Maps the values inside a successful
+    ///     <see>
+    ///         <cref>Result{IEnumerable{TSource}}</cref>
+    ///     </see>
+    ///     to a list of
+    ///     <typeparamref name="TDestination" />
+    ///     using AutoMapper. If the result is a failure, the failure is propagated unchanged.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the original list elements.</typeparam>
+    /// <typeparam name="TDestination">The type to map the list elements to.</typeparam>
+    /// <param name="result">The result containing the list of values to transform.</param>
+    /// <param name="mapper">The AutoMapper instance used for mapping.</param>
+    /// <returns>
+    ///     A new
+    ///     <see>
+    ///         <cref>Result{List{TDestination}}</cref>
+    ///     </see>
+    ///     containing the mapped list if the operation succeeded,
+    ///     or the original failure if the operation failed.
+    /// </returns>
+    public static Common.Types.Result<IEnumerable<TDestination>> MapList<TSource, TDestination>(
+        this Common.Types.Result<IEnumerable<TSource>> result,
+        IMapper mapper)
+    {
+        return result.IsSuccess
+            ? Common.Types.Result<IEnumerable<TDestination>>.Success(
+                mapper.Map<IEnumerable<TDestination>>(result.Value!))
+            : Common.Types.Result<IEnumerable<TDestination>>.Failure(result.Exception!);
     }
 }

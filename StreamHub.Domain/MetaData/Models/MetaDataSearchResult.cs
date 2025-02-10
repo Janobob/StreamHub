@@ -5,12 +5,15 @@ namespace StreamHub.Domain.MetaData.Models;
 /// <summary>
 ///     Represents the result of a media metadata search.
 /// </summary>
-public class MediaMetaDataSearchResult
+public class MetaDataSearchResult
 {
     /// <summary>
-    ///     Gets or sets the unique identifier of the media metadata search result.
+    ///     Gets or sets the unique identifiers from different providers.
+    ///     <example>
+    ///         { "thetvdb": "1234", "themoviedb": "5678" }
+    ///     </example>
     /// </summary>
-    public int Id { get; set; }
+    public Dictionary<string, string> ProviderIds { get; set; } = new();
 
     /// <summary>
     ///     Gets or sets the name of the media metadata search result.

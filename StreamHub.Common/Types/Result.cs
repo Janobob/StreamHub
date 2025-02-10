@@ -144,6 +144,27 @@ public class Result<T>
     }
 
     /// <summary>
+    ///     Combines this result with an asynchronous operation that returns another result,
+    ///     producing a single result containing both values.
+    /// </summary>
+    /// <typeparam name="TOther">The type of the result from the next operation.</typeparam>
+    /// <param name="next">A function that takes the current result value and returns a new async result.</param>
+    /// <returns>
+    ///     A new <see cref="Result{T}" /> containing a tuple of both values if both operations succeed,
+    ///     or the first encountered failure.
+    /// </returns>
+    public async Task<Result<TOther>> Combine<TOther>(
+        Func<T, Task<Result<TOther>>> next)
+    {
+        if (!IsSuccess)
+        {
+            return Result<TOther>.Failure(Exception!);
+        }
+
+        return await next(Value!);
+    }
+
+    /// <summary>
     ///     Converts the result to a string representation.
     /// </summary>
     /// <returns>A string that represents the result.</returns>

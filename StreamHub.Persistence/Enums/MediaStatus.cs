@@ -1,5 +1,6 @@
 ﻿namespace StreamHub.Persistence.Enums;
 
+// TODO: move to StreamHub.Common.Enums
 /// <summary>
 ///     Represents the status of a media entity.
 /// </summary>

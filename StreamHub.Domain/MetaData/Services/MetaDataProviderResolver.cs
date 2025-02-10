@@ -3,6 +3,7 @@ using StreamHub.Common.Types;
 using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Models;
 using StreamHub.Domain.MetaData.Services.Contracts;
+using StreamHub.Persistence.Enums;
 
 namespace StreamHub.Domain.MetaData.Services;
 
@@ -77,6 +78,47 @@ public class MetaDataProviderResolver(
         }
 
         return settings;
+    }
+
+    /// <inheritdoc />
+    public async Task<Result<IEnumerable<MetaDataSearchResult>>> SearchMediaAsync(string query, string? name,
+        int limit = 10,
+        MediaType type = MediaType.All)
+    {
+        // check if a specific provider is requested
+        if (name is not null)
+        {
+            try
+            {
+                var provider = GetProviderServiceByName(name);
+                return await provider.SearchMediaAsync(query, limit, type);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<MetaDataSearchResult>>.Failure(e);
+            }
+        }
+
+        // search all providers
+        var results = new List<MetaDataSearchResult>();
+        foreach (var provider in providers)
+        {
+            var result = await provider.SearchMediaAsync(query, limit, type);
+            if (result.IsSuccess)
+            {
+                results.AddRange(result.Value!);
+            }
+        }
+
+        // combine results with the same name
+        results = results.GroupBy(r => r.Name).Select<IGrouping<string, MetaDataSearchResult>, MetaDataSearchResult>(
+            x =>
+            {
+                var first = x.First();
+                first.ProviderIds = x.SelectMany(r => r.ProviderIds).ToDictionary();
+                return first;
+            }).ToList();
+        return Result<IEnumerable<MetaDataSearchResult>>.Success(results);
     }
 
     /// <inheritdoc />

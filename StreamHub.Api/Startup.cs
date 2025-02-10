@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using StreamHub.Api.GraphQl.Queries;
 using StreamHub.Api.Middlewares;
+using StreamHub.Api.Models;
 using StreamHub.Core.Extensions;
 using StreamHub.Persistence.Contexts;
 
@@ -67,6 +68,9 @@ public class Startup
 
         // Add repositories
         services.AddRepositories();
+
+        // Add AutoMapper
+        services.AddAutoMapper(typeof(MappingProfile));
 
         // Add Metadata providers and services
         services.AddMetadataProvidersAndServices();
