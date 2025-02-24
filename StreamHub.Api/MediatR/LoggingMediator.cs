@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace StreamHub.Core.MediatR;
+namespace StreamHub.Api.MediatR;
 
 /// <summary>
 ///     A decorator for <see cref="IMediator" /> that adds logging for all MediatR requests and notifications.

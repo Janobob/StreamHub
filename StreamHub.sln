@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Api", "StreamHub.Api\StreamHub.Api.csproj", "{18BF2033-9C0D-4EAB-96D1-A62E59561D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Core", "StreamHub.Core\StreamHub.Core.csproj", "{6B62D40F-B3B5-48AB-A1C5-1F052CCD40DE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Domain", "StreamHub.Domain\StreamHub.Domain.csproj", "{4FBDFEAA-DB55-4C88-B9FC-6193861DE1A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Persistence", "StreamHub.Persistence\StreamHub.Persistence.csproj", "{A6D4A194-487F-4E32-86C0-019A8E514E93}"
@@ -20,10 +18,6 @@ Global
 		{18BF2033-9C0D-4EAB-96D1-A62E59561D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18BF2033-9C0D-4EAB-96D1-A62E59561D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18BF2033-9C0D-4EAB-96D1-A62E59561D7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B62D40F-B3B5-48AB-A1C5-1F052CCD40DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B62D40F-B3B5-48AB-A1C5-1F052CCD40DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B62D40F-B3B5-48AB-A1C5-1F052CCD40DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B62D40F-B3B5-48AB-A1C5-1F052CCD40DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FBDFEAA-DB55-4C88-B9FC-6193861DE1A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FBDFEAA-DB55-4C88-B9FC-6193861DE1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FBDFEAA-DB55-4C88-B9FC-6193861DE1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU

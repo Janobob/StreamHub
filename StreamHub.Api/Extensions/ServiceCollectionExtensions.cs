@@ -1,8 +1,5 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using StreamHub.Core.MediatR;
+using StreamHub.Api.MediatR;
 using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Services;
 using StreamHub.Domain.MetaData.Services.Contracts;
@@ -10,7 +7,7 @@ using StreamHub.Persistence.Entities;
 using StreamHub.Persistence.Repositories;
 using StreamHub.Persistence.Repositories.Contracts;
 
-namespace StreamHub.Core.Extensions;
+namespace StreamHub.Api.Extensions;
 
 /// <summary>
 ///     Extension methods for dependency injection.

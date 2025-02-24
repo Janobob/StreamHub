@@ -1,7 +1,6 @@
 ﻿using System.Runtime.InteropServices;
-using Microsoft.Extensions.Logging;
 
-namespace StreamHub.Core.Extensions;
+namespace StreamHub.Api.Extensions;
 
 /// <summary>
 ///     Extension methods for <see cref="ILogger" />.
