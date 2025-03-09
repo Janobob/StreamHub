@@ -35,7 +35,7 @@ public class MetaDataController(
     [ProducesResponseType<IEnumerable<MetaDataProviderResponse>>(StatusCodes.Status200OK, "application/json")]
     public async Task<ActionResult<IEnumerable<MetaDataProviderResponse>>> GetMetaDataProviders()
     {
-        var result = await mediator.Send(new GetMetaDataProvidersRequest());
+        var result = await mediator.Send(new GetAllMetaDataProvidersRequest());
 
         return result.MapList<MetaDataProvider, MetaDataProviderResponse>(mapper)
             .ToActionResult(HttpContext, ProblemDetailsFactory);

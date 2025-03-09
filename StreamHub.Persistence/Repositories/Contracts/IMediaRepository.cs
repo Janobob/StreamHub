@@ -5,6 +5,6 @@ namespace StreamHub.Persistence.Repositories.Contracts;
 /// <summary>
 ///     Repository interface for media specific operations.
 /// </summary>
-public interface IMediaRepository<TMedia> : IGenericRepository<TMedia> where TMedia : Media
+public interface IMediaRepository<TMedia> : IGenericRepository<TMedia> where TMedia : MediaEntity
 {
 }

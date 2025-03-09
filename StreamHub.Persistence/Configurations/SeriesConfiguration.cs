@@ -6,14 +6,14 @@ using StreamHub.Persistence.Enums;
 namespace StreamHub.Persistence.Configurations;
 
 /// <summary>
-///     Configures the entity framework for the <see cref="Series" /> entity.
+///     Configures the entity framework for the <see cref="SeriesEntity" /> entity.
 /// </summary>
-public class SeriesConfiguration : IEntityTypeConfiguration<Series>
+public class SeriesConfiguration : IEntityTypeConfiguration<SeriesEntity>
 {
     /// <inheritdoc />
-    public void Configure(EntityTypeBuilder<Series> builder)
+    public void Configure(EntityTypeBuilder<SeriesEntity> builder)
     {
-        builder.HasBaseType<Media>(); // Inherits from Media
+        builder.HasBaseType<MediaEntity>(); // Inherits from Media
 
         builder.Property(s => s.Status)
             .HasConversion<string>() // Store enum as string
@@ -21,7 +21,7 @@ public class SeriesConfiguration : IEntityTypeConfiguration<Series>
             .HasDefaultValue(MediaStatus.Continuing);
 
         builder.HasMany(s => s.Seasons)
-            .WithOne(s => s.Series)
+            .WithOne(s => s.SeriesEntity)
             .HasForeignKey(s => s.SeriesId)
             .OnDelete(DeleteBehavior.Cascade);
     }

@@ -2,6 +2,6 @@
 
 namespace StreamHub.Persistence.Repositories.Contracts;
 
-public interface ISeasonRepository : IGenericRepository<Season>
+public interface ISeasonRepository : IGenericRepository<SeasonEntity>
 {
 }

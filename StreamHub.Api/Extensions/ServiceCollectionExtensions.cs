@@ -40,9 +40,9 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IMediaLibraryRepository, MediaLibraryRepository>();
-        services.AddScoped<IMediaRepository<Media>, MediaRepository>();
-        services.AddScoped<IMediaRepository<Series>, SeriesRepository>();
-        services.AddScoped<IMediaRepository<Movie>, MovieRepository>();
+        services.AddScoped<IMediaRepository<MediaEntity>, MediaRepository>();
+        services.AddScoped<IMediaRepository<SeriesEntity>, SeriesRepository>();
+        services.AddScoped<IMediaRepository<MovieEntity>, MovieRepository>();
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<ISeriesRepository, SeriesRepository>();
         services.AddScoped<IEpisodeRepository, EpisodeRepository>();

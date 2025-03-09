@@ -5,12 +5,12 @@ using StreamHub.Persistence.Entities;
 namespace StreamHub.Persistence.Configurations;
 
 /// <summary>
-///     Configures the entity framework for the <see cref="Season" /> entity.
+///     Configures the entity framework for the <see cref="SeasonEntity" /> entity.
 /// </summary>
-public class SeasonConfiguration : IEntityTypeConfiguration<Season>
+public class SeasonConfiguration : IEntityTypeConfiguration<SeasonEntity>
 {
     /// <inheritdoc />
-    public void Configure(EntityTypeBuilder<Season> builder)
+    public void Configure(EntityTypeBuilder<SeasonEntity> builder)
     {
         builder.HasKey(s => s.Id);
 
@@ -32,12 +32,12 @@ public class SeasonConfiguration : IEntityTypeConfiguration<Season>
             .HasColumnType("date") // Date only, no time
             .IsRequired();
 
-        builder.HasOne(s => s.Series)
+        builder.HasOne(s => s.SeriesEntity)
             .WithMany(s => s.Seasons)
             .HasForeignKey(s => s.SeriesId);
 
         builder.HasMany(s => s.Episodes)
-            .WithOne(s => s.Season)
+            .WithOne(s => s.SeasonEntity)
             .HasForeignKey(s => s.SeasonId);
     }
 }

@@ -18,7 +18,7 @@ public class MetaDataQuery
     /// <returns>A list of <see cref="MetaDataProvider" /> representing the metadata providers.</returns>
     public async Task<IEnumerable<MetaDataProvider>> GetMetaDataProvidersAsync(IMediator mediator)
     {
-        var result = await mediator.Send(new GetMetaDataProvidersRequest());
+        var result = await mediator.Send(new GetAllMetaDataProvidersRequest());
 
         return result.ToGraphQlAction();
     }

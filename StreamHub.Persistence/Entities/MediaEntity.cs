@@ -8,7 +8,7 @@ namespace StreamHub.Persistence.Entities;
 /// <summary>
 ///     Represents the abstract base entity for all types of media (e.g., movies, series, anime).
 /// </summary>
-public abstract class Media
+public abstract class MediaEntity
 {
     /// <summary>
     ///     Gets or sets the unique identifier for the media entity.
@@ -53,7 +53,7 @@ public abstract class Media
     /// <summary>
     ///     Gets or sets the navigation property to the media library that this media belongs to.
     /// </summary>
-    public required MediaLibrary MediaLibrary { get; set; }
+    public required MediaLibraryEntity MediaLibraryEntity { get; set; }
 
     /// <summary>
     ///     Gets or sets the type of media (e.g., Movie, Series, Anime).

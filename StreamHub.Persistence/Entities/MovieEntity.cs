@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents a movie entity, inheriting from the base media class.
 /// </summary>
-public class Movie : Media
+public class MovieEntity : MediaEntity
 {
     /// <summary>
     ///     Gets or sets the duration of the movie in minutes.

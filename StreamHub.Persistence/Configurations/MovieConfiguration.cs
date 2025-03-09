@@ -5,14 +5,14 @@ using StreamHub.Persistence.Entities;
 namespace StreamHub.Persistence.Configurations;
 
 /// <summary>
-///     Configures the entity framework for the <see cref="Movie" /> entity.
+///     Configures the entity framework for the <see cref="MovieEntity" /> entity.
 /// </summary>
-public class MovieConfiguration : IEntityTypeConfiguration<Movie>
+public class MovieConfiguration : IEntityTypeConfiguration<MovieEntity>
 {
     /// <inheritdoc />
-    public void Configure(EntityTypeBuilder<Movie> builder)
+    public void Configure(EntityTypeBuilder<MovieEntity> builder)
     {
-        builder.HasBaseType<Media>(); // Inherits from Media
+        builder.HasBaseType<MediaEntity>(); // Inherits from Media
 
         builder.Property(m => m.Duration)
             .IsRequired();

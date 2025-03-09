@@ -5,12 +5,12 @@ using StreamHub.Persistence.Entities;
 namespace StreamHub.Persistence.Configurations;
 
 /// <summary>
-///     Configures the entity framework for the <see cref="MediaLibrary" /> entity.
+///     Configures the entity framework for the <see cref="MediaLibraryEntity" /> entity.
 /// </summary>
-public class MediaLibraryConfiguration : IEntityTypeConfiguration<MediaLibrary>
+public class MediaLibraryConfiguration : IEntityTypeConfiguration<MediaLibraryEntity>
 {
     /// <inheritdoc />
-    public void Configure(EntityTypeBuilder<MediaLibrary> builder)
+    public void Configure(EntityTypeBuilder<MediaLibraryEntity> builder)
     {
         builder.HasKey(ml => ml.Id);
 
@@ -25,7 +25,7 @@ public class MediaLibraryConfiguration : IEntityTypeConfiguration<MediaLibrary>
             .IsRequired();
 
         builder.HasMany(ml => ml.MediaItems)
-            .WithOne(m => m.MediaLibrary)
+            .WithOne(m => m.MediaLibraryEntity)
             .HasForeignKey(m => m.MediaLibraryId)
             .OnDelete(DeleteBehavior.Cascade);
     }

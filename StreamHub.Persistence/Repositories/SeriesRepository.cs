@@ -9,6 +9,6 @@ namespace StreamHub.Persistence.Repositories;
 /// </summary>
 /// <param name="dbContext">The database context used for accessing the database.</param>
 public class SeriesRepository(StreamHubDbContext dbContext)
-    : GenericRepository<Series>(dbContext), ISeriesRepository
+    : GenericRepository<SeriesEntity>(dbContext), ISeriesRepository
 {
 }

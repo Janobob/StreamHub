@@ -6,12 +6,12 @@ using StreamHub.Persistence.Enums;
 namespace StreamHub.Persistence.Configurations;
 
 /// <summary>
-///     Configures the entity framework for the <see cref="Media" /> entity.
+///     Configures the entity framework for the <see cref="MediaEntity" /> entity.
 /// </summary>
-public class MediaConfiguration : IEntityTypeConfiguration<Media>
+public class MediaConfiguration : IEntityTypeConfiguration<MediaEntity>
 {
     /// <inheritdoc />
-    public void Configure(EntityTypeBuilder<Media> builder)
+    public void Configure(EntityTypeBuilder<MediaEntity> builder)
     {
         builder.HasKey(m => m.Id);
 
@@ -36,14 +36,14 @@ public class MediaConfiguration : IEntityTypeConfiguration<Media>
             .HasColumnType("date") // Date only, no time
             .IsRequired();
 
-        builder.HasOne(m => m.MediaLibrary)
+        builder.HasOne(m => m.MediaLibraryEntity)
             .WithMany(ml => ml.MediaItems)
             .HasForeignKey(m => m.MediaLibraryId);
 
         // Discriminator column for TPH (Table-Per-Hierarchy)
         builder.HasDiscriminator<MediaType>("MediaType")
-            .HasValue<Movie>(MediaType.Movie)
-            .HasValue<Series>(MediaType.Series);
+            .HasValue<MovieEntity>(MediaType.Movie)
+            .HasValue<SeriesEntity>(MediaType.Series);
 
         builder.Property(s => s.Status)
             .HasConversion<string>() // Store enum as string

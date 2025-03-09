@@ -7,6 +7,6 @@ namespace StreamHub.Domain.MetaData.Requests;
 /// <summary>
 ///     Request to get all meta data providers.
 /// </summary>
-public record GetMetaDataProvidersRequest : IRequest<Result<IEnumerable<MetaDataProvider>>>
+public record GetAllMetaDataProvidersRequest : IRequest<Result<IEnumerable<MetaDataProvider>>>
 {
 }

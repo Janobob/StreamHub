@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents a media library that contains a collection of media items such as movies, series, and anime.
 /// </summary>
-public class MediaLibrary
+public class MediaLibraryEntity
 {
     /// <summary>
     ///     Gets or sets the unique identifier for the media library.
@@ -28,5 +28,5 @@ public class MediaLibrary
     /// <summary>
     ///     Gets or sets the collection of media items in the media library.
     /// </summary>
-    public List<Media> MediaItems { get; set; } = [];
+    public List<MediaEntity> MediaItems { get; set; } = [];
 }

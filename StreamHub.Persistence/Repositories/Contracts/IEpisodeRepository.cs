@@ -5,6 +5,6 @@ namespace StreamHub.Persistence.Repositories.Contracts;
 /// <summary>
 ///     Repository interface for episode specific operations.
 /// </summary>
-public interface IEpisodeRepository : IGenericRepository<Episode>
+public interface IEpisodeRepository : IGenericRepository<EpisodeEntity>
 {
 }

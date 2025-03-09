@@ -3,10 +3,10 @@
 /// <summary>
 ///     Represents a series entity, inheriting from the base media class.
 /// </summary>
-public class Series : Movie
+public class SeriesEntity : MovieEntity
 {
     /// <summary>
     ///     Gets or sets the list of seasons for the series.
     /// </summary>
-    public List<Season> Seasons { get; set; } = [];
+    public List<SeasonEntity> Seasons { get; set; } = [];
 }

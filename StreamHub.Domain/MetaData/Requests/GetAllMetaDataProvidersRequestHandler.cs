@@ -11,8 +11,8 @@ namespace StreamHub.Domain.MetaData.Requests;
 /// <param name="metaDataProviderResolver">
 ///     The resolver used to retrieve all available meta data providers.
 /// </param>
-public class GetMetaDataProvidersRequestHandler(IMetaDataProviderResolver metaDataProviderResolver)
-    : IRequestHandler<GetMetaDataProvidersRequest, Result<IEnumerable<MetaDataProvider>>>
+public class GetAllMetaDataProvidersRequestHandler(IMetaDataProviderResolver metaDataProviderResolver)
+    : IRequestHandler<GetAllMetaDataProvidersRequest, Result<IEnumerable<MetaDataProvider>>>
 {
     /// <summary>
     ///     Handles the request to get all meta data providers.
@@ -27,7 +27,7 @@ public class GetMetaDataProvidersRequestHandler(IMetaDataProviderResolver metaDa
     ///     A task that represents the asynchronous operation. The task result contains
     ///     an enumerable collection of <see cref="MetaDataProvider" />.
     /// </returns>
-    public Task<Result<IEnumerable<MetaDataProvider>>> Handle(GetMetaDataProvidersRequest request,
+    public Task<Result<IEnumerable<MetaDataProvider>>> Handle(GetAllMetaDataProvidersRequest request,
         CancellationToken cancellationToken)
     {
         // Return all available meta data providers

@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents an episode of a series.
 /// </summary>
-public class Episode
+public class EpisodeEntity
 {
     /// <summary>
     ///     Gets or sets the unique identifier for the media entity.
@@ -43,5 +43,5 @@ public class Episode
     /// <summary>
     ///     Gets or sets the navigation property to the season that this episode belongs to.
     /// </summary>
-    public required Season Season { get; set; }
+    public required SeasonEntity SeasonEntity { get; set; }
 }
