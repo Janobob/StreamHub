@@ -72,8 +72,9 @@ public class Startup
         // Add AutoMapper
         services.AddAutoMapper(typeof(MappingProfile));
 
-        // Add Metadata providers and services
+        // Add Features
         services.AddMetadataProvidersAndServices();
+        services.AddLibraryServices();
 
         // Add MediatR
         services.AddMediatRServices();
