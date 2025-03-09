@@ -1,5 +1,8 @@
 ﻿using MediatR;
 using StreamHub.Api.MediatR;
+using StreamHub.Domain.Library.Models;
+using StreamHub.Domain.Library.Services;
+using StreamHub.Domain.Library.Services.Contracts;
 using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Services;
 using StreamHub.Domain.MetaData.Services.Contracts;
@@ -61,6 +64,21 @@ public static class ServiceCollectionExtensions
     {
         services.AddHttpClient<IMetaDataProviderService, TvdbMetaDataProviderService>();
         services.AddScoped<IMetaDataProviderResolver, MetaDataProviderResolver>();
+
+        return services;
+    }
+
+    /// <summary>
+    ///     Registers all library services.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>
+    ///     The same <see cref="IServiceCollection" /> instance so that additional calls can be chained.
+    /// </returns>
+    public static IServiceCollection AddLibraryServices(this IServiceCollection services)
+    {
+        services.AddScoped<IMediaLibraryService, MediaLibraryService>();
+        services.AddAutoMapper(typeof(LibraryMappingProfile));
 
         return services;
     }
