@@ -66,7 +66,7 @@ public class MetaDataController(
     }
 
     /// <summary>
-    ///     Searches for media meta data items from metadata providers based on the provided query.
+    ///     Searches for media metadata items from metadata providers based on the provided query.
     /// </summary>
     /// <param name="query">The search query string.</param>
     /// <param name="name">The name of the metadata provider to search within (optional).</param>

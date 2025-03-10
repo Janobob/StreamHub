@@ -9,12 +9,22 @@ using StreamHub.Persistence.Repositories.Contracts;
 
 namespace StreamHub.Domain.Library.Services;
 
+/// <summary>
+///     Implementation of the <see cref="IMediaLibraryService" /> interface.
+///     Provides methods for interacting with media libraries.
+/// </summary>
 public class MediaLibraryService : IMediaLibraryService
 {
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
     private readonly IMediaLibraryRepository _repo;
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="MediaLibraryService" /> class.
+    /// </summary>
+    /// <param name="repo">The media library repository.</param>
+    /// <param name="mapper">The AutoMapper instance.</param>
+    /// <param name="mediator">The MediatR instance.</param>
     public MediaLibraryService(IMediaLibraryRepository repo, IMapper mapper, IMediator mediator)
     {
         _repo = repo;
@@ -22,6 +32,7 @@ public class MediaLibraryService : IMediaLibraryService
         _mediator = mediator;
     }
 
+    /// <inheritdoc />
     public async Task<Result<MediaLibrary>> GetMediaLibraryAsync(int id)
     {
         var entity = await _repo.GetByIdAsync(id);
@@ -31,6 +42,7 @@ public class MediaLibraryService : IMediaLibraryService
             : Result<MediaLibrary>.Success(_mapper.Map<MediaLibrary>(entity));
     }
 
+    /// <inheritdoc />
     public async Task<Result<IEnumerable<MediaLibrary>>> GetMediaLibrariesAsync()
     {
         var entities = await _repo.GetAllAsync();
@@ -38,6 +50,7 @@ public class MediaLibraryService : IMediaLibraryService
         return Result<IEnumerable<MediaLibrary>>.Success(_mapper.Map<IEnumerable<MediaLibrary>>(entities));
     }
 
+    /// <inheritdoc />
     public async Task<Result<MediaLibrary>> AddMediaLibraryAsync(MediaLibrary mediaLibrary)
     {
         await _repo.AddAsync(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
@@ -48,6 +61,7 @@ public class MediaLibraryService : IMediaLibraryService
         return Result<MediaLibrary>.Success(mediaLibrary);
     }
 
+    /// <inheritdoc />
     public async Task<Result<MediaLibrary>> UpdateMediaLibraryAsync(MediaLibrary mediaLibrary)
     {
         _repo.Update(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
@@ -58,8 +72,14 @@ public class MediaLibraryService : IMediaLibraryService
         return Result<MediaLibrary>.Success(mediaLibrary);
     }
 
-    public Task<Result<MediaLibrary>> DeleteMediaLibraryAsync(int id)
+    /// <inheritdoc />
+    public async Task<Result<MediaLibrary>> DeleteMediaLibraryAsync(MediaLibrary mediaLibrary)
     {
-        throw new NotImplementedException();
+        _repo.Delete(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
+        await _repo.SaveChangesAsync();
+
+        await _mediator.Publish(new MediaLibraryDeletedNotification(mediaLibrary));
+
+        return Result<MediaLibrary>.Success(mediaLibrary);
     }
 }
