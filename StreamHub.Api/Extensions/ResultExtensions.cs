@@ -25,6 +25,11 @@ public static class ResultExtensions
     {
         if (result.IsSuccess)
         {
+            // TODO: Consider using the appropriate status code based on the operation
+            // For example, if the operation was a creation, return 201 Created
+            // If the operation was an update, return 200 OK
+            // If the operation was a deletion, return 204 No Content
+            // If the operation was a read, return 200 OK
             return new OkObjectResult(result.Value);
         }
 

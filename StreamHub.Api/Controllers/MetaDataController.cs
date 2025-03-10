@@ -14,14 +14,24 @@ namespace StreamHub.Api.Controllers;
 /// <summary>
 ///     Controller for handling metadata-related operations.
 /// </summary>
-/// <param name="mediator">The mediator instance for handling requests.</param>
-/// <param name="mapper">The mapper instance for mapping models.</param>
 [ApiController]
 [Route("api/[controller]")]
-public class MetaDataController(
-    IMediator mediator,
-    IMapper mapper) : ControllerBase
+public class MetaDataController : ControllerBase
 {
+    private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="MetaDataController" /> class.
+    /// </summary>
+    /// <param name="mediator">The mediator instance for handling requests.</param>
+    /// <param name="mapper">The mapper instance for mapping models.</param>
+    public MetaDataController(IMediator mediator, IMapper mapper)
+    {
+        _mediator = mediator;
+        _mapper = mapper;
+    }
+
     /// <summary>
     ///     Retrieves all registered and available metadata providers.
     /// </summary>
@@ -35,9 +45,9 @@ public class MetaDataController(
     [ProducesResponseType<IEnumerable<MetaDataProviderResponse>>(StatusCodes.Status200OK, "application/json")]
     public async Task<ActionResult<IEnumerable<MetaDataProviderResponse>>> GetMetaDataProviders()
     {
-        var result = await mediator.Send(new GetAllMetaDataProvidersRequest());
+        var result = await _mediator.Send(new GetAllMetaDataProvidersRequest());
 
-        return result.MapList<MetaDataProvider, MetaDataProviderResponse>(mapper)
+        return result.MapList<MetaDataProvider, MetaDataProviderResponse>(_mapper)
             .ToActionResult(HttpContext, ProblemDetailsFactory);
     }
 
@@ -54,14 +64,14 @@ public class MetaDataController(
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     public async Task<ActionResult<MetaDataProviderResponse>> GetMetaDataProvider(
         [Required]
-        [FromQuery]
+        [FromRoute]
         [Description("The name of the metadata provider")]
         [System.ComponentModel.DefaultValue("Tvdb")]
         string name)
     {
-        var result = await mediator.Send(new GetMetaDataProviderRequest(name));
+        var result = await _mediator.Send(new GetMetaDataProviderRequest(name));
 
-        return result.Map<MetaDataProvider, MetaDataProviderResponse>(mapper)
+        return result.Map<MetaDataProvider, MetaDataProviderResponse>(_mapper)
             .ToActionResult(HttpContext, ProblemDetailsFactory);
     }
 
@@ -95,9 +105,9 @@ public class MetaDataController(
         int limit = 10
     )
     {
-        var result = await mediator.Send(new SearchMediaMetaDataRequest(query, name, type, limit));
+        var result = await _mediator.Send(new SearchMediaMetaDataRequest(query, name, type, limit));
 
-        return result.MapList<MetaDataSearchResult, MetaDataSearchResultResponse>(mapper)
+        return result.MapList<MetaDataSearchResult, MetaDataSearchResultResponse>(_mapper)
             .ToActionResult(HttpContext, ProblemDetailsFactory);
     }
 }
