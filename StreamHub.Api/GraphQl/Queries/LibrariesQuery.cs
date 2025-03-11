@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
 using MediatR;
 using StreamHub.Api.Extensions;
 using StreamHub.Api.Models.Library;
@@ -22,6 +23,8 @@ public class LibrariesQuery
     ///     A task that represents the asynchronous operation. The task result contains an enumerable of
     ///     MediaLibraryResponse.
     /// </returns>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for GraphQL Dependency Injection")]
     public async Task<IEnumerable<MediaLibraryResponse>> GetAllMediaLibrariesAsync([Service] IMediator mediator,
         [Service] IMapper mapper)
     {
@@ -40,6 +43,8 @@ public class LibrariesQuery
     /// <returns>
     ///     A task that represents the asynchronous operation. The task result contains the MediaLibraryResponse.
     /// </returns>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for GraphQL Dependency Injection")]
     public async Task<MediaLibraryResponse> GetMediaLibraryAsync([Service] IMediator mediator, [Service] IMapper mapper,
         int id)
     {
@@ -58,6 +63,8 @@ public class LibrariesQuery
     /// <returns>
     ///     A task that represents the asynchronous operation. The task result contains the MediaLibraryResponse.
     /// </returns>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for GraphQL Dependency Injection")]
     public async Task<MediaLibraryResponse> AddMediaLibraryAsync([Service] IMediator mediator, [Service] IMapper mapper,
         MediaLibraryRequest mediaLibraryRequest)
     {
@@ -77,6 +84,8 @@ public class LibrariesQuery
     /// <returns>
     ///     A task that represents the asynchronous operation. The task result contains the MediaLibraryResponse.
     /// </returns>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for GraphQL Dependency Injection")]
     public async Task<MediaLibraryResponse> UpdateMediaLibraryAsync([Service] IMediator mediator,
         [Service] IMapper mapper,
         MediaLibraryRequest mediaLibraryRequest)
@@ -97,6 +106,8 @@ public class LibrariesQuery
     /// <returns>
     ///     A task that represents the asynchronous operation. The task result contains the MediaLibraryResponse.
     /// </returns>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for GraphQL Dependency Injection")]
     public async Task<MediaLibraryResponse> DeleteMediaLibraryAsync([Service] IMediator mediator,
         [Service] IMapper mapper,
         MediaLibraryRequest mediaLibraryRequest)

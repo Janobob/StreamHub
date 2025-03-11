@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using StreamHub.Api.Extensions;
@@ -95,6 +96,8 @@ public class Startup
     /// <param name="app">The application builder.</param>
     /// <param name="env">The web host environment.</param>
     /// <param name="logger">The logger instance used to log runtime and environment information.</param>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for Dependency Injection")]
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
     {
         logger.LogRuntimeAndEnvironmentInformation();

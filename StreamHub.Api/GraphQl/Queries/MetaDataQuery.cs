@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
 using MediatR;
 using StreamHub.Api.Extensions;
 using StreamHub.Api.Models.MetaData;
@@ -19,6 +20,8 @@ public class MetaDataQuery
     /// <param name="mediator">The mediator instance for handling requests.</param>
     /// <param name="mapper">The mapper instance for mapping models.</param>
     /// <returns>A list of <see cref="MetaDataProvider" /> representing the metadata providers.</returns>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for GraphQL Dependency Injection")]
     public async Task<IEnumerable<MetaDataProviderResponse>> GetMetaDataProvidersAsync([Service] IMediator mediator,
         [Service] IMapper mapper)
     {
@@ -36,6 +39,8 @@ public class MetaDataQuery
     /// <returns>
     ///     The <see cref="MetaDataProvider" /> corresponding to the specified name.
     /// </returns>
+    [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
+        Justification = "Required for GraphQL Dependency Injection")]
     public async Task<MetaDataProviderResponse> GetMetaDataProviderAsync([Service] IMediator mediator,
         [Service] IMapper mapper,
         string name)

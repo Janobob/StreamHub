@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace StreamHub.Api.Models.Library;
 
 public record MediaLibraryRequest(
     [property: Required]
+    [property: JsonRequired]
     [property: Description("The unique identifier of the media library")]
     int Id,
     [property: Required]
