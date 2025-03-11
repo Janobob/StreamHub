@@ -25,11 +25,6 @@ public static class ResultExtensions
     {
         if (result.IsSuccess)
         {
-            // TODO: Consider using the appropriate status code based on the operation
-            // For example, if the operation was a creation, return 201 Created
-            // If the operation was an update, return 200 OK
-            // If the operation was a deletion, return 204 No Content
-            // If the operation was a read, return 200 OK
             return new OkObjectResult(result.Value);
         }
 
@@ -55,6 +50,75 @@ public static class ResultExtensions
                 StatusCode = StatusCodes.Status500InternalServerError
             }
         };
+    }
+
+    /// <summary>
+    ///     Converts a <see cref="Result{T}" /> into an appropriate <see cref="IActionResult" /> with No Content (204) status.
+    /// </summary>
+    /// <typeparam name="T">The type of the result value.</typeparam>
+    /// <param name="result">The result to process.</param>
+    /// <param name="context">The current HTTP context.</param>
+    /// <param name="problemDetailsFactory">The problem details factory to create responses.</param>
+    /// <returns>
+    ///     A <see cref="NoContentResult" /> if successful, otherwise an appropriate error response as
+    ///     <see cref="IActionResult" />.
+    /// </returns>
+    public static IActionResult ToNoContentActionResult<T>(
+        this Common.Types.Result<T> result,
+        HttpContext context,
+        ProblemDetailsFactory problemDetailsFactory)
+    {
+        if (result.IsSuccess)
+        {
+            return new NoContentResult();
+        }
+
+        // return result or throw exception if not successful
+        return result.ToActionResult(context, problemDetailsFactory).Result ??
+               new StatusCodeResult(StatusCodes.Status500InternalServerError);
+    }
+
+    /// <summary>
+    ///     Converts a <see cref="Result{T}" /> into an appropriate <see cref="ActionResult" /> with Created (201) status.
+    /// </summary>
+    /// <typeparam name="T">The type of the result value.</typeparam>
+    /// <param name="result">The result to process.</param>
+    /// <param name="context">The current HTTP context.</param>
+    /// <param name="problemDetailsFactory">The problem details factory to create responses.</param>
+    /// <returns>
+    ///     A <see cref="CreatedResult" /> with the new resource if successful, otherwise an appropriate error response.
+    /// </returns>
+    public static ActionResult<T> ToCreatedActionResult<T>(
+        this Common.Types.Result<T> result,
+        HttpContext context,
+        ProblemDetailsFactory problemDetailsFactory)
+    {
+        if (result.IsSuccess)
+        {
+            return new CreatedResult(context.Request.Path, result.Value);
+        }
+
+        // passthrough to ToActionResult to get error response
+        return result.ToActionResult(context, problemDetailsFactory);
+    }
+
+    /// <summary>
+    ///     Converts a <see cref="Result{T}" /> into an appropriate <see cref="ActionResult" /> with OK (200) status.
+    /// </summary>
+    /// <typeparam name="T">The type of the result value.</typeparam>
+    /// <param name="result">The result to process.</param>
+    /// <param name="context">The current HTTP context.</param>
+    /// <param name="problemDetailsFactory">The problem details factory to create responses.</param>
+    /// <returns>
+    ///     A <see cref="OkObjectResult" /> with resource if successful, otherwise an appropriate error response.
+    /// </returns>
+    public static ActionResult<T> ToOkActionResult<T>(
+        this Common.Types.Result<T> result,
+        HttpContext context,
+        ProblemDetailsFactory problemDetailsFactory)
+    {
+        // acts as a pass-through for the ToActionResult method, may change in the future
+        return result.ToActionResult(context, problemDetailsFactory);
     }
 
     /// <summary>

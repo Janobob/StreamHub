@@ -5,9 +5,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using StreamHub.Api.Extensions;
 using StreamHub.Api.Models.MetaData;
+using StreamHub.Common.Enums;
 using StreamHub.Domain.MetaData.Models;
 using StreamHub.Domain.MetaData.Requests;
-using StreamHub.Persistence.Enums;
 
 namespace StreamHub.Api.Controllers;
 
@@ -72,7 +72,7 @@ public class MetaDataController : ControllerBase
         var result = await _mediator.Send(new GetMetaDataProviderRequest(name));
 
         return result.Map<MetaDataProvider, MetaDataProviderResponse>(_mapper)
-            .ToActionResult(HttpContext, ProblemDetailsFactory);
+            .ToOkActionResult(HttpContext, ProblemDetailsFactory);
     }
 
     /// <summary>
@@ -108,6 +108,6 @@ public class MetaDataController : ControllerBase
         var result = await _mediator.Send(new SearchMediaMetaDataRequest(query, name, type, limit));
 
         return result.MapList<MetaDataSearchResult, MetaDataSearchResultResponse>(_mapper)
-            .ToActionResult(HttpContext, ProblemDetailsFactory);
+            .ToOkActionResult(HttpContext, ProblemDetailsFactory);
     }
 }

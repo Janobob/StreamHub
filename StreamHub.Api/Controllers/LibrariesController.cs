@@ -45,7 +45,7 @@ public class LibrariesController : ControllerBase
         var result = await _mediator.Send(new GetAllMediaLibrarysRequest());
 
         return result.MapList<MediaLibrary, MediaLibraryResponse>(_mapper)
-            .ToActionResult(HttpContext, ProblemDetailsFactory);
+            .ToOkActionResult(HttpContext, ProblemDetailsFactory);
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class LibrariesController : ControllerBase
         var result = await _mediator.Send(new GetMediaLibraryRequest(id));
 
         return result.Map<MediaLibrary, MediaLibraryResponse>(_mapper)
-            .ToActionResult(HttpContext, ProblemDetailsFactory);
+            .ToOkActionResult(HttpContext, ProblemDetailsFactory);
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class LibrariesController : ControllerBase
         var result = await _mediator.Send(new AddMediaLibraryRequest(mediaLibrary));
 
         return result.Map<MediaLibrary, MediaLibraryResponse>(_mapper)
-            .ToActionResult(HttpContext, ProblemDetailsFactory);
+            .ToCreatedActionResult(HttpContext, ProblemDetailsFactory);
     }
 
     /// <summary>
@@ -121,7 +121,7 @@ public class LibrariesController : ControllerBase
 
         var result = await _mediator.Send(new UpdateMediaLibraryRequest(mediaLibrary));
         return result.Map<MediaLibrary, MediaLibraryResponse>(_mapper)
-            .ToActionResult(HttpContext, ProblemDetailsFactory);
+            .ToOkActionResult(HttpContext, ProblemDetailsFactory);
     }
 
 
@@ -144,8 +144,6 @@ public class LibrariesController : ControllerBase
         var mediaLibrary = new MediaLibrary(id, "", "", "");
         var result = await _mediator.Send(new DeleteMediaLibraryRequest(mediaLibrary));
 
-        // TODO: Implement proper handling of the result
-        // return result.ToActionResult(HttpContext, ProblemDetailsFactory); but for IActionResult
-        return NoContent();
+        return result.ToNoContentActionResult(HttpContext, ProblemDetailsFactory);
     }
 }

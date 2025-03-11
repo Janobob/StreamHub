@@ -13,5 +13,6 @@ public class MappingProfile : Profile
         CreateMap<MetaDataProvider, MetaDataProviderResponse>();
         CreateMap<MetaDataSearchResult, MetaDataSearchResultResponse>();
         CreateMap<MediaLibrary, MediaLibraryResponse>();
+        CreateMap<MediaLibraryRequest, MediaLibrary>();
     }
 }

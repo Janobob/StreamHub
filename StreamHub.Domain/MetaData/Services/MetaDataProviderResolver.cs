@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
+using StreamHub.Common.Enums;
 using StreamHub.Common.Types;
 using StreamHub.Domain.MetaData.Configurations;
 using StreamHub.Domain.MetaData.Models;
 using StreamHub.Domain.MetaData.Services.Contracts;
-using StreamHub.Persistence.Enums;
 
 namespace StreamHub.Domain.MetaData.Services;
 

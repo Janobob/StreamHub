@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StreamHub.Common.Enums;
 using StreamHub.Persistence.Entities;
-using StreamHub.Persistence.Enums;
 
 namespace StreamHub.Persistence.Configurations;
 

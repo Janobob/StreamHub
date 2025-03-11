@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using StreamHub.Persistence.Enums;
+using StreamHub.Common.Enums;
 
 namespace StreamHub.Api.Models.MetaData;
 

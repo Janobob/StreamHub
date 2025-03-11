@@ -1,4 +1,4 @@
-﻿using StreamHub.Persistence.Enums;
+﻿using StreamHub.Common.Enums;
 
 namespace StreamHub.Domain.MetaData.Models;
 
