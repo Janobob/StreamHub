@@ -19,6 +19,7 @@ public class MediaLibraryConfiguration : IEntityTypeConfiguration<MediaLibraryEn
             .HasMaxLength(200);
 
         builder.Property(ml => ml.Description)
+            .IsRequired()
             .HasMaxLength(1000);
 
         builder.Property(ml => ml.Path)

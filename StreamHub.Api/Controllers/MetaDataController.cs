@@ -39,11 +39,11 @@ public class MetaDataController : ControllerBase
     ///     A list of <see cref="MetaDataProvider" /> representing the metadata providers.
     /// </returns>
     [HttpGet("providers")]
-    [EndpointName(nameof(GetMetaDataProviders))]
+    [EndpointName(nameof(GetMetaDataProvidersAsync))]
     [EndpointSummary("Get all metadata providers")]
     [EndpointDescription("Get all registered and available metadata providers.")]
     [ProducesResponseType<IEnumerable<MetaDataProviderResponse>>(StatusCodes.Status200OK, "application/json")]
-    public async Task<ActionResult<IEnumerable<MetaDataProviderResponse>>> GetMetaDataProviders()
+    public async Task<ActionResult<IEnumerable<MetaDataProviderResponse>>> GetMetaDataProvidersAsync()
     {
         var result = await _mediator.Send(new GetAllMetaDataProvidersRequest());
 
@@ -57,12 +57,12 @@ public class MetaDataController : ControllerBase
     /// <param name="name">The name of the metadata provider to retrieve.</param>
     /// <returns>A <see cref="MetaDataProvider" /> representing the metadata provider.</returns>
     [HttpGet("providers/{name}")]
-    [EndpointName(nameof(GetMetaDataProvider))]
+    [EndpointName(nameof(GetMetaDataProviderAsync))]
     [EndpointSummary("Get metadata provider by name")]
     [EndpointDescription("Get a specific metadata provider by name.")]
     [ProducesResponseType<MetaDataProviderResponse>(StatusCodes.Status200OK, "application/json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    public async Task<ActionResult<MetaDataProviderResponse>> GetMetaDataProvider(
+    public async Task<ActionResult<MetaDataProviderResponse>> GetMetaDataProviderAsync(
         [Required]
         [FromRoute]
         [Description("The name of the metadata provider")]

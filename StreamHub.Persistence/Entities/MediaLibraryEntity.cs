@@ -18,7 +18,7 @@ public class MediaLibraryEntity
     /// <summary>
     ///     Gets or sets an optional description of the media library.
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; }
 
     /// <summary>
     ///     Gets or sets the storage path where the media library is located. This field is required.

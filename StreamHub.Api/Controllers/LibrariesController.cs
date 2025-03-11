@@ -37,10 +37,10 @@ public class LibrariesController : ControllerBase
     /// <returns>A list of <see cref="MediaLibraryResponse" /> representing all media libraries.</returns>
     [HttpGet]
     [ProducesResponseType<IEnumerable<MediaLibraryResponse>>(StatusCodes.Status200OK, "application/json")]
-    [EndpointName(nameof(GetAllMediaLibraries))]
+    [EndpointName(nameof(GetAllMediaLibrariesAsync))]
     [EndpointSummary("Get all media libraries")]
     [EndpointDescription("Retrieves all registered media libraries.")]
-    public async Task<ActionResult<IEnumerable<MediaLibraryResponse>>> GetAllMediaLibraries()
+    public async Task<ActionResult<IEnumerable<MediaLibraryResponse>>> GetAllMediaLibrariesAsync()
     {
         var result = await _mediator.Send(new GetAllMediaLibrarysRequest());
 
@@ -56,10 +56,10 @@ public class LibrariesController : ControllerBase
     [HttpGet("{id:int}")]
     [ProducesResponseType<MediaLibraryResponse>(StatusCodes.Status200OK, "application/json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    [EndpointName(nameof(GetMediaLibrary))]
+    [EndpointName(nameof(GetMediaLibraryAsync))]
     [EndpointSummary("Get media library by ID")]
     [EndpointDescription("Retrieves a specific media library using its unique identifier.")]
-    public async Task<ActionResult<MediaLibraryResponse>> GetMediaLibrary(
+    public async Task<ActionResult<MediaLibraryResponse>> GetMediaLibraryAsync(
         [Required] [FromRoute] [Description("The ID of the media library")]
         int id
     )
@@ -78,10 +78,10 @@ public class LibrariesController : ControllerBase
     [HttpPost]
     [ProducesResponseType<MediaLibraryResponse>(StatusCodes.Status201Created, "application/json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    [EndpointName(nameof(AddMediaLibrary))]
+    [EndpointName(nameof(AddMediaLibraryAsync))]
     [EndpointSummary("Add a new media library")]
     [EndpointDescription("Creates a new media library and stores it in the system.")]
-    public async Task<ActionResult<MediaLibraryResponse>> AddMediaLibrary(
+    public async Task<ActionResult<MediaLibraryResponse>> AddMediaLibraryAsync(
         [Required] [FromBody] [Description("The media library to add")]
         MediaLibraryRequest mediaLibraryRequest
     )
@@ -103,10 +103,10 @@ public class LibrariesController : ControllerBase
     [ProducesResponseType<MediaLibraryResponse>(StatusCodes.Status200OK, "application/json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    [EndpointName(nameof(UpdateLibrary))]
+    [EndpointName(nameof(UpdateLibraryAsync))]
     [EndpointSummary("Update media library")]
     [EndpointDescription("Modifies an existing media library using the provided data.")]
-    public async Task<ActionResult<MediaLibraryResponse>> UpdateLibrary(
+    public async Task<ActionResult<MediaLibraryResponse>> UpdateLibraryAsync(
         [Required] [FromRoute] [Description("The ID of the media library")]
         int id,
         [Required] [FromBody] [Description("The media library to update")]
@@ -133,11 +133,12 @@ public class LibrariesController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    [EndpointName(nameof(DeleteLibrary))]
+    [EndpointName(nameof(DeleteLibraryAsync))]
     [EndpointSummary("Delete media library")]
     [EndpointDescription("Removes a media library from the system by its unique identifier.")]
-    public async Task<IActionResult> DeleteLibrary(
-        [Required] [FromRoute] [Description("The ID of the media library")] int id)
+    public async Task<IActionResult> DeleteLibraryAsync(
+        [Required] [FromRoute] [Description("The ID of the media library")]
+        int id)
     {
         // TODO: Rewrite delete method to use only the ID
         var mediaLibrary = new MediaLibrary(id, "", "", "");

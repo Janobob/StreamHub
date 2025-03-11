@@ -1,5 +1,7 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using StreamHub.Api.Extensions;
+using StreamHub.Api.Models.MetaData;
 using StreamHub.Domain.MetaData.Models;
 using StreamHub.Domain.MetaData.Requests;
 
@@ -15,26 +17,31 @@ public class MetaDataQuery
     ///     Retrieves all registered and available metadata providers.
     /// </summary>
     /// <param name="mediator">The mediator instance for handling requests.</param>
+    /// <param name="mapper">The mapper instance for mapping models.</param>
     /// <returns>A list of <see cref="MetaDataProvider" /> representing the metadata providers.</returns>
-    public async Task<IEnumerable<MetaDataProvider>> GetMetaDataProvidersAsync(IMediator mediator)
+    public async Task<IEnumerable<MetaDataProviderResponse>> GetMetaDataProvidersAsync([Service] IMediator mediator,
+        [Service] IMapper mapper)
     {
         var result = await mediator.Send(new GetAllMetaDataProvidersRequest());
 
-        return result.ToGraphQlAction();
+        return result.MapList<MetaDataProvider, MetaDataProviderResponse>(mapper).ToGraphQlAction();
     }
 
     /// <summary>
     ///     Retrieves a specific metadata provider by its name.
     /// </summary>
     /// <param name="mediator">The mediator instance used to send the request.</param>
+    /// <param name="mapper">The mapper instance for mapping models.</param>
     /// <param name="name">The name of the metadata provider to retrieve.</param>
     /// <returns>
     ///     The <see cref="MetaDataProvider" /> corresponding to the specified name.
     /// </returns>
-    public async Task<MetaDataProvider> GetMetaDataProviderAsync(IMediator mediator, string name)
+    public async Task<MetaDataProviderResponse> GetMetaDataProviderAsync([Service] IMediator mediator,
+        [Service] IMapper mapper,
+        string name)
     {
         var result = await mediator.Send(new GetMetaDataProviderRequest(name));
 
-        return result.ToGraphQlAction();
+        return result.Map<MetaDataProvider, MetaDataProviderResponse>(mapper).ToGraphQlAction();
     }
 }
