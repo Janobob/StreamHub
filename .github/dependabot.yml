@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/StreamHub.Api"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "nuget"
+    directory: "/StreamHub.Domain"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "nuget"
+    directory: "/StreamHub.Persistence"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "npm"
+    directory: "/StreamHub.Web"
+    schedule:
+      interval: "weekly"
+
