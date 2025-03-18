@@ -73,13 +73,18 @@ public class MediaLibraryService : IMediaLibraryService
     }
 
     /// <inheritdoc />
-    public async Task<Result<MediaLibrary>> DeleteMediaLibraryAsync(MediaLibrary mediaLibrary)
+    public async Task<Result<bool>> DeleteMediaLibraryAsync(int id)
     {
-        _repo.Delete(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
+        var deleted = await _repo.DeleteAsync(id);
+
+        if (!deleted)
+        {
+            return Result<bool>.Failure(new ArgumentException($"MediaLibrary with id {id} not found"));
+        }
+
         await _repo.SaveChangesAsync();
+        await _mediator.Publish(new MediaLibraryDeletedNotification(id));
 
-        await _mediator.Publish(new MediaLibraryDeletedNotification(mediaLibrary));
-
-        return Result<MediaLibrary>.Success(mediaLibrary);
+        return Result<bool>.Success(true);
     }
 }

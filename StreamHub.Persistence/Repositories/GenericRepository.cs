@@ -40,14 +40,22 @@ public abstract class GenericRepository<TEntity>(StreamHubDbContext dbContext) :
     }
 
     /// <inheritdoc />
-    public void Delete(TEntity entity)
-    {
-        _dbSet.Remove(entity);
-    }
-
-    /// <inheritdoc />
     public async Task<int> SaveChangesAsync()
     {
         return await dbContext.SaveChangesAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var entity = await _dbSet.FindAsync(id);
+
+        if (entity == null)
+        {
+            return false; // Falls die Entität nicht existiert, brechen wir ab
+        }
+
+        _dbSet.Remove(entity);
+        return true;
     }
 }

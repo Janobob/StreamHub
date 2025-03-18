@@ -34,8 +34,9 @@ public interface IGenericRepository<TEntity> where TEntity : class
     /// <summary>
     ///     Deletes an entity from the repository.
     /// </summary>
-    /// <param name="entity">The entity to delete.</param>
-    void Delete(TEntity entity);
+    /// <param name="id">The unique identifier of the entity to delete.</param>
+    /// <returns>A task that represents the asynchronous delete operation.</returns>
+    Task<bool> DeleteAsync(int id);
 
     /// <summary>
     ///     Saves all pending changes to the repository.

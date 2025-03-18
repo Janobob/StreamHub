@@ -23,7 +23,8 @@ public class MediaLibraryConfiguration : IEntityTypeConfiguration<MediaLibraryEn
             .HasMaxLength(1000);
 
         builder.Property(ml => ml.Path)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(1000);
 
         builder.HasMany(ml => ml.MediaItems)
             .WithOne(m => m.MediaLibraryEntity)

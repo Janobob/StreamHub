@@ -6,6 +6,6 @@ namespace StreamHub.Domain.Library.Notifactions;
 ///     Notification for when a media library is updated.
 /// </summary>
 /// <param name="MediaLibrary">The media library that was updated.</param>
-public class MediaLibraryUpdatedNotification(MediaLibrary MediaLibrary)
+public record MediaLibraryUpdatedNotification(MediaLibrary MediaLibrary)
 {
 }

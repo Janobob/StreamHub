@@ -42,7 +42,7 @@ public class LibrariesController : ControllerBase
     [EndpointDescription("Retrieves all registered media libraries.")]
     public async Task<ActionResult<IEnumerable<MediaLibraryResponse>>> GetAllMediaLibrariesAsync()
     {
-        var result = await _mediator.Send(new GetAllMediaLibrarysRequest());
+        var result = await _mediator.Send(new GetAllMediaLibrariesRequest());
 
         return result.MapList<MediaLibrary, MediaLibraryResponse>(_mapper)
             .ToOkActionResult(HttpContext, ProblemDetailsFactory);
@@ -130,7 +130,7 @@ public class LibrariesController : ControllerBase
     /// </summary>
     /// <param name="id">The ID of the media library to delete.</param>
     /// <returns>No content on success.</returns>
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     [EndpointName(nameof(DeleteLibraryAsync))]
@@ -140,9 +140,7 @@ public class LibrariesController : ControllerBase
         [Required] [FromRoute] [Description("The ID of the media library")]
         int id)
     {
-        // TODO: Rewrite delete method to use only the ID
-        var mediaLibrary = new MediaLibrary(id, "", "", "");
-        var result = await _mediator.Send(new DeleteMediaLibraryRequest(mediaLibrary));
+        var result = await _mediator.Send(new DeleteMediaLibraryRequest(id));
 
         return result.ToNoContentActionResult(HttpContext, ProblemDetailsFactory);
     }

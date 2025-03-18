@@ -28,7 +28,7 @@ public class LibrariesQuery
     public async Task<IEnumerable<MediaLibraryResponse>> GetAllMediaLibrariesAsync([Service] IMediator mediator,
         [Service] IMapper mapper)
     {
-        var result = await mediator.Send(new GetAllMediaLibrarysRequest());
+        var result = await mediator.Send(new GetAllMediaLibrariesRequest());
 
         return result.MapList<MediaLibrary, MediaLibraryResponse>(mapper)
             .ToGraphQlAction();
@@ -102,20 +102,18 @@ public class LibrariesQuery
     /// </summary>
     /// <param name="mediator">The mediator service for sending requests.</param>
     /// <param name="mapper">The mapper service for mapping objects.</param>
-    /// <param name="mediaLibraryRequest">The request object containing media library details.</param>
+    /// <param name="id">The ID of the media library to delete.</param>
     /// <returns>
-    ///     A task that represents the asynchronous operation. The task result contains the MediaLibraryResponse.
+    ///     A task that represents the asynchronous operation. The task result contains a boolean indicating success.
     /// </returns>
     [SuppressMessage("Minor Code Smell", "S2325:Make methods static",
         Justification = "Required for GraphQL Dependency Injection")]
-    public async Task<MediaLibraryResponse> DeleteMediaLibraryAsync([Service] IMediator mediator,
+    public async Task<bool> DeleteMediaLibraryAsync([Service] IMediator mediator,
         [Service] IMapper mapper,
-        MediaLibraryRequest mediaLibraryRequest)
+        int id)
     {
-        var mediaLibrary = mapper.Map<MediaLibrary>(mediaLibraryRequest);
-        var result = await mediator.Send(new DeleteMediaLibraryRequest(mediaLibrary));
+        var result = await mediator.Send(new DeleteMediaLibraryRequest(id));
 
-        return result.Map<MediaLibrary, MediaLibraryResponse>(mapper)
-            .ToGraphQlAction();
+        return result.ToGraphQlAction();
     }
 }

@@ -7,6 +7,6 @@ namespace StreamHub.Domain.Library.Requests;
 /// <summary>
 ///     Request to get all media libraries.
 /// </summary>
-public class GetAllMediaLibrarysRequest : IRequest<Result<IEnumerable<MediaLibrary>>>
+public record GetAllMediaLibrariesRequest : IRequest<Result<IEnumerable<MediaLibrary>>>
 {
 }

@@ -38,7 +38,7 @@ public class Startup
         // Add OpenAPI
         services.AddOpenApi(options =>
         {
-            options.AddOperationTransformer((operation, context, cancellationToken) =>
+            options.AddOperationTransformer((operation, _, _) =>
             {
                 operation.Responses.Add("500", new OpenApiResponse
                 {

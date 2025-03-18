@@ -39,7 +39,7 @@ public interface IMediaLibraryService
     /// <summary>
     ///     Deletes a media library.
     /// </summary>
-    /// <param name="mediaLibrary">The media library to delete.</param>
+    /// <param name="id">The identifier of the media library to delete.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the deleted media library.</returns>
-    Task<Result<MediaLibrary>> DeleteMediaLibraryAsync(MediaLibrary mediaLibrary);
+    Task<Result<bool>> DeleteMediaLibraryAsync(int id);
 }

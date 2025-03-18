@@ -7,7 +7,7 @@ namespace StreamHub.Domain.Library.Requests;
 /// <summary>
 ///     Request to get a media library by Id.
 /// </summary>
-/// <param name="Id">The Id of the media library to retrieve.</param>
-public class GetMediaLibraryRequest(int Id) : IRequest<Result<MediaLibrary>>
+/// <param name="Id">The ID of the media library to retrieve.</param>
+public record GetMediaLibraryRequest(int Id) : IRequest<Result<MediaLibrary>>
 {
 }
