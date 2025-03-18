@@ -287,3 +287,6 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+StreamHub.Api/streamhub.db
+StreamHub.Api/streamhub.db-shm
+StreamHub.Api/streamhub.db-wal
