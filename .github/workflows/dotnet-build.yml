@@ -29,3 +29,26 @@ jobs:
 
             - name: Run Tests
               run: dotnet test StreamHub.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
+            - name: Install ReportGenerator
+              run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+            - name: Convert coverage to Cobertura
+              run: |
+                  reportgenerator \
+                    -reports:"TestResults/**/coverage.xml" \
+                    -targetdir:"coveragereport" \
+                    -reporttypes:Cobertura
+              env:
+                  PATH: ${{ env.PATH }}:/home/runner/.dotnet/tools
+
+            - name: Run SonarCloud Scan
+              uses: SonarSource/sonarcloud-github-action@master
+              with:
+                  args: >
+                      -Dsonar.projectKey=Janobob_StreamHub
+                      -Dsonar.organization=janobob
+                      -Dsonar.host.url=https://sonarcloud.io
+                      -Dsonar.cs.opencover.reportsPaths=coveragereport/Cobertura.xml
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
