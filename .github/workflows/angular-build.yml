@@ -1,40 +1,40 @@
 name: Angular Build
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    types: [opened, synchronize, reopened]
+    push:
+        branches:
+            - master
+    pull_request:
+        types: [opened, synchronize, reopened]
 
 jobs:
-  build:
-    name: Build Angular App
-    runs-on: ubuntu-latest
+    build:
+        name: Build Angular App
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+                  cache: "npm"
+                  cache-dependency-path: "**/package-lock.json"
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: "StreamHub.Web"
+            - name: Install dependencies
+              run: npm ci
+              working-directory: "src/StreamHub.Web"
 
-      - name: Lint Code
-        run: npm run lint
-        working-directory: "StreamHub.Web"
+            - name: Lint Code
+              run: npm run lint
+              working-directory: "src/StreamHub.Web"
 
-      - name: Run Unit Tests
-        run: npm run test -- --watch=false --browsers=ChromeHeadless
-        working-directory: "StreamHub.Web"
+            - name: Run Unit Tests
+              run: npm run test -- --watch=false --browsers=ChromeHeadless
+              working-directory: "src/StreamHub.Web"
 
-      - name: Build Angular App
-        run: npm run build -- --configuration=production
-        working-directory: "StreamHub.Web"
+            - name: Build Angular App
+              run: npm run build -- --configuration=production
+              working-directory: "src/StreamHub.Web"
