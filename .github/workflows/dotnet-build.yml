@@ -28,7 +28,7 @@ jobs:
               run: dotnet build StreamHub.sln --configuration Release --no-restore
 
             - name: Run Tests
-              run: dotnet test StreamHub.sln --configuration Release --no-build --verbosity normal --coverage --coverage-output-format xml --coverage-output coverage.xml
+              run: dotnet test StreamHub.sln --configuration Release --no-build --verbosity normal
 
             - name: SonarScanner for .NET 9
               uses: highbyte/sonarscan-dotnet@v2.4.2
