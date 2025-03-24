@@ -28,4 +28,14 @@ jobs:
               run: dotnet build StreamHub.sln --configuration Release --no-restore
 
             - name: Run Tests
-              run: dotnet test StreamHub.sln --configuration Release --no-build --verbosity normal
+              run: dotnet test StreamHub.sln --configuration Release --no-build --verbosity normal --coverage --coverage-output-format xml --coverage-output coverage.xml
+
+            - name: SonarScanner for .NET 9
+              uses: highbyte/sonarscan-dotnet@v2.4.2
+              with:
+                  sonarProjectKey: Janobob_StreamHub
+                  sonarProjectName: StreamHub
+                  sonarOrganization: janobob
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
