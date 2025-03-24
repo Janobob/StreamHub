@@ -16,7 +16,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
-            - name: Setup .NET
+            - name: Setup .NET 9
               uses: actions/setup-dotnet@v3
               with:
                   dotnet-version: "9.0.x"
@@ -28,7 +28,7 @@ jobs:
               run: dotnet build StreamHub.sln --configuration Release --no-restore
 
             - name: Run Tests
-              run: dotnet test StreamHub.sln --configuration Release --no-build --verbosity normal --coverage --coverage-output-format xml --coverage-output coverage.xml
+              run: dotnet test StreamHub.sln --configuration Release --no-build --verbosity normal
 
             - name: SonarScanner for .NET 9
               uses: highbyte/sonarscan-dotnet@v2.4.2
@@ -36,6 +36,9 @@ jobs:
                   sonarProjectKey: Janobob_StreamHub
                   sonarProjectName: StreamHub
                   sonarOrganization: janobob
+                  dotnetTestArguments: /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+                  sonarBeginArguments: /d:sonar.verbose="true" /d:sonar.language="cs" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                   GITHUB_TOKEN: ${{ secrets.TOKEN }}
