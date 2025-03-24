@@ -36,8 +36,8 @@ jobs:
                   sonarProjectKey: Janobob_StreamHub
                   sonarProjectName: StreamHub
                   sonarOrganization: janobob
-                  dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-                  sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+                  dotnetTestArguments: /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+                  sonarBeginArguments: /d:sonar.verbose="true" /d:sonar.language="cs" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
 
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
