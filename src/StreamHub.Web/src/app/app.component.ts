@@ -10,5 +10,22 @@ import { StyleClassModule } from 'primeng/styleclass';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor() {}
+  theme: 'light' | 'dark' = 'light';
+
+  constructor() {
+    const darkModeOn =
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    this.theme = darkModeOn ? 'dark' : 'light';
+    const element = document.querySelector('html');
+    element!.classList.add(this.theme);
+  }
+
+  toggleTheme() {
+    const element = document.querySelector('html');
+    element!.classList.remove(this.theme);
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
+    element!.classList.toggle(this.theme);
+  }
 }
