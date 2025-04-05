@@ -4,21 +4,32 @@ using Newtonsoft.Json;
 
 namespace StreamHub.Api.Models.Library;
 
-public record MediaLibraryRequest(
-    [property: Required]
-    [property: JsonRequired]
-    [property: Description("The unique identifier of the media library")]
-    int Id,
-    [property: Required]
-    [property: Description("The name of the media library")]
-    [property: MaxLength(200)]
-    string Name,
-    [property: Description("The description of the media library")]
-    [property: MaxLength(1000)]
-    string Description,
-    [property: Required]
-    [property: Description("The file path or directory in storage for the media library")]
-    [property: MaxLength(1000)]
-    string Path)
+public record MediaLibraryRequest
 {
+    [Required]
+    [JsonRequired]
+    [Description("The unique identifier of the media library")]
+    public int Id { get; init; }
+
+    [Required]
+    [MaxLength(200)]
+    [Description("The name of the media library")]
+    public string Name { get; init; }
+
+    [MaxLength(1000)]
+    [Description("The description of the media library")]
+    public string Description { get; init; }
+
+    [Required]
+    [MaxLength(1000)]
+    [Description("The file path or directory in storage for the media library")]
+    public string Path { get; init; }
+
+    public MediaLibraryRequest(int id, string name, string description, string path)
+    {
+        Id = id;
+        Name = name;
+        Description = description;
+        Path = path;
+    }
 }
