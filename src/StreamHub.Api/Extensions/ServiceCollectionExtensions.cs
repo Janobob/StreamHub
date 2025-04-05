@@ -27,8 +27,10 @@ public static class ServiceCollectionExtensions
     /// </returns>
     public static IServiceCollection AddConfigurations(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<MetaDataConfiguration>(
-            configuration.GetSection(MetaDataConfiguration.Key));
+        services.AddOptions<MetaDataConfiguration>()
+            .Bind(configuration.GetSection(MetaDataConfiguration.Key))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         return services;
     }
