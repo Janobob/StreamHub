@@ -94,23 +94,6 @@ public class Result<T>
     }
 
     /// <summary>
-    ///     Matches the result and executes the corresponding action based on success or failure.
-    /// </summary>
-    /// <param name="onSuccess">The action to execute if the operation succeeded.</param>
-    /// <param name="onFailure">The action to execute if the operation failed.</param>
-    public void Match(Action<T> onSuccess, Action<Exception> onFailure)
-    {
-        if (IsSuccess)
-        {
-            onSuccess(Value!);
-        }
-        else
-        {
-            onFailure(Exception!);
-        }
-    }
-
-    /// <summary>
     ///     Matches the result and returns a value based on success or failure.
     /// </summary>
     /// <typeparam name="TResult">The type of the return value.</typeparam>
@@ -135,12 +118,9 @@ public class Result<T>
             return Result<(T, TOther)>.Failure(Exception!);
         }
 
-        if (!other.IsSuccess)
-        {
-            return Result<(T, TOther)>.Failure(other.Exception!);
-        }
-
-        return Result<(T, TOther)>.Success((Value!, other.Value!));
+        return !other.IsSuccess
+            ? Result<(T, TOther)>.Failure(other.Exception!)
+            : Result<(T, TOther)>.Success((Value!, other.Value!));
     }
 
     /// <summary>

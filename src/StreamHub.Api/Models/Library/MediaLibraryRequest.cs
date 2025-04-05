@@ -11,11 +11,14 @@ public record MediaLibraryRequest(
     int Id,
     [property: Required]
     [property: Description("The name of the media library")]
+    [property: MaxLength(200)]
     string Name,
     [property: Description("The description of the media library")]
+    [property: MaxLength(1000)]
     string Description,
     [property: Required]
     [property: Description("The file path or directory in storage for the media library")]
+    [property: MaxLength(1000)]
     string Path)
 {
 }

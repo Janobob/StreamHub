@@ -24,6 +24,21 @@ public class ResultTests
     }
 
     [Fact]
+    public async Task Combine_Async_ShouldReturnFailure_WhenOriginalIsFailure()
+    {
+        // Arrange
+        var original = Result<int>.Failure(new InvalidOperationException("Original failed"));
+
+        // Act
+        var combined = await original.Combine<object>(_ => throw new Exception("This should not be called"));
+
+        // Assert
+        Assert.False(combined.IsSuccess);
+        Assert.IsType<InvalidOperationException>(combined.Exception);
+        Assert.Equal("Original failed", combined.Exception?.Message);
+    }
+
+    [Fact]
     public async Task Combine_Async_ShouldWorkCorrectly()
     {
         var result = Result<int>.Success(3);
@@ -47,6 +62,18 @@ public class ResultTests
 
         Assert.False(combined.IsSuccess);
         Assert.Equal("First failed", combined.Exception?.Message);
+    }
+
+    [Fact]
+    public void Combine_ShouldReturnSuccess_WhenBothResultsAreSuccessful()
+    {
+        var result1 = Result<int>.Success(1);
+        var result2 = Result<string>.Success("ok");
+
+        var combined = result1.Combine(result2);
+
+        Assert.True(combined.IsSuccess);
+        Assert.Equal((1, "ok"), combined.Value);
     }
 
     [Fact]
@@ -78,6 +105,70 @@ public class ResultTests
 
         Assert.True(mapped.IsSuccess);
         Assert.Equal(4, mapped.Value);
+    }
+
+    [Fact]
+    public void Match_Result_ShouldReturnFailureValue()
+    {
+        // Arrange
+        var result = Result<int>.Failure(new Exception("fail"));
+
+        // Act
+        var value = result.Match(
+            x => x * 2,
+            _ => -1);
+
+        // Assert
+        Assert.Equal(-1, value);
+    }
+
+    [Fact]
+    public void Match_Result_ShouldReturnSuccessValue()
+    {
+        // Arrange
+        var result = Result<int>.Success(42);
+
+        // Act
+        var value = result.Match(
+            x => x * 2,
+            _ => -1);
+
+        // Assert
+        Assert.Equal(84, value);
+    }
+
+    [Fact]
+    public void Match_Void_ShouldCallOnFailure_WhenFailure()
+    {
+        // Arrange
+        var result = Result<string>.Failure(new InvalidOperationException("fail"));
+        var successCalled = false;
+        var failureCalled = false;
+
+        // Act
+        result.Match(
+            _ => successCalled = true,
+            _ => failureCalled = true);
+
+        // Assert
+        Assert.False(successCalled);
+        Assert.True(failureCalled);
+    }
+
+    [Fact]
+    public void Match_Void_ShouldCallOnSuccess_WhenSuccess()
+    {
+        // Arrange
+        var result = Result<string>.Success("hello");
+        var called = false;
+
+        // Act
+        result.Match(
+            _ => called = true,
+            _ => throw new Exception("Should not be called"));
+
+        // Assert
+        Assert.True(called);
     }
 
     [Fact]
