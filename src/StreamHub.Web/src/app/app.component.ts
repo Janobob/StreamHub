@@ -11,6 +11,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 })
 export class AppComponent {
   theme: 'light' | 'dark' = 'light';
+  isThemeSwitching = false;
 
   constructor() {
     const darkModeOn =
@@ -23,9 +24,16 @@ export class AppComponent {
   }
 
   toggleTheme() {
+    this.isThemeSwitching = true;
+
     const element = document.querySelector('html');
     element!.classList.remove(this.theme);
+
     this.theme = this.theme === 'light' ? 'dark' : 'light';
-    element!.classList.toggle(this.theme);
+    element!.classList.add(this.theme);
+
+    setTimeout(() => {
+      this.isThemeSwitching = false;
+    }, 300);
   }
 }
