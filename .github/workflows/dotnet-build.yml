@@ -34,6 +34,7 @@ jobs:
               run: |
                   dotnet sonarscanner begin \
                     /k:"Janobob_StreamHub" \
+                    /o:"janobob" \
                     /n:"StreamHub" \
                     /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
                     /d:sonar.cs.opencover.reportsPaths="coverage.xml" \
