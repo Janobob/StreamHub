@@ -50,14 +50,20 @@ jobs:
                     --configuration Release \
                     /p:CollectCoverage=true \
                     /p:CoverletOutputFormat=opencover \
-                    /p:CoverletOutput=./TestResults/coverage.opencover.xml
+                    /p:CoverletOutput=$(pwd)/coverage.opencover.xml
 
             - name: Verify coverage report
               run: |
-                  echo "Contents of TestResults folder:"
-                  ls -la ./TestResults
+                  echo "Checking if coverage report exists:"
+                  ls -la ./coverage.opencover.xml
                   echo "Coverage report snippet:"
-                  head -n 20 ./TestResults/coverage.opencover.xml
+                  head -n 20 ./coverage.opencover.xml
+
+            - name: Upload coverage report
+              uses: actions/upload-artifact@v4
+              with:
+                  name: coverage-report
+                  path: coverage.opencover.xml
 
             - name: End Sonar scan
               run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
