@@ -9,10 +9,11 @@
   >
     Topbar
     <p-button
+      text
       [icon]="theme === 'dark' ? 'pi pi-sun' : 'pi pi-moon'"
       class="ml-auto"
       (click)="toggleTheme()"
-      text
+      (keydown.enter)="toggleTheme()"
     ></p-button>
   </div>
 
