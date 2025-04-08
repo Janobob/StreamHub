@@ -1,43 +1,50 @@
 version: 2
 updates:
-    - package-ecosystem: "nuget"
-      directory: "/src/StreamHub.Api"
-      schedule:
-          interval: "weekly"
-      reviewers:
-          - "Janobob"
+  - package-ecosystem: "nuget"
+    directory: "/src/StreamHub.Api"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "Janobob"
 
-    - package-ecosystem: "nuget"
-      directory: "/src/StreamHub.Domain"
-      schedule:
-          interval: "weekly"
-      reviewers:
-          - "Janobob"
+  - package-ecosystem: "nuget"
+    directory: "/src/StreamHub.Domain"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "Janobob"
 
-    - package-ecosystem: "nuget"
-      directory: "/src/StreamHub.Persistence"
-      schedule:
-          interval: "weekly"
-      reviewers:
-          - "Janobob"
+  - package-ecosystem: "nuget"
+    directory: "/src/StreamHub.Persistence"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "Janobob"
 
-    - package-ecosystem: "nuget"
-      directory: "/src/StreamHub.Common"
-      schedule:
-          interval: "weekly"
-      reviewers:
-          - "Janobob"
+  - package-ecosystem: "nuget"
+    directory: "/src/StreamHub.Common"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "Janobob"
 
-    - package-ecosystem: "nuget"
-      directory: "/tests/StreamHub.Common.Tests"
-      schedule:
-          interval: "weekly"
-      reviewers:
-          - "Janobob"
+  - package-ecosystem: "nuget"
+    directory: "/tests/StreamHub.Common.Tests"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "Janobob"
 
-    - package-ecosystem: "npm"
-      directory: "/src/StreamHub.Web"
-      schedule:
-          interval: "weekly"
-      reviewers:
-          - "Janobob"
+  - package-ecosystem: "npm"
+    directory: "/src/StreamHub.Web"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "Janobob"
+    groups:
+      angular:
+        patterns:
+          - "@angular*"
+        update-types:
+          - "minor"
+          - "patch"
