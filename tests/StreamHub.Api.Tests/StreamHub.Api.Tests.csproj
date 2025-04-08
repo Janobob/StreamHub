@@ -6,6 +6,8 @@
         <OutputType>Exe</OutputType>
         <RootNamespace>StreamHub.Api.Tests</RootNamespace>
         <TargetFramework>net9.0</TargetFramework>
+        <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+        <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
         <!--
         To enable the Microsoft Testing Platform 'dotnet test' experience, add property:
           <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
@@ -36,15 +38,14 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="MediatR" Version="12.4.1"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
         <PackageReference Include="NSubstitute" Version="5.3.0"/>
-        <PackageReference Include="xunit.v3" Version="2.0.0"/>
+        <PackageReference Include="xunit.v3" Version="2.0.1"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\src\StreamHub.Api\StreamHub.Api.csproj"/>
+        <ProjectReference Include="..\..\src\StreamHub.Api\StreamHub.Api.csproj"/>
     </ItemGroup>
 
 </Project>

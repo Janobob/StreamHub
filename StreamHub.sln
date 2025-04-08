@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Common", "src\Str
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Common.Tests", "tests\StreamHub.Common.Tests\StreamHub.Common.Tests.csproj", "{A36EBF7C-E272-4D6A-B2D7-DE6DAA43C60F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Api.Tests", "StreamHub.Api.Tests\StreamHub.Api.Tests.csproj", "{9DA00CB2-051F-4F58-80BF-6AB797A98674}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamHub.Api.Tests", "tests\StreamHub.Api.Tests\StreamHub.Api.Tests.csproj", "{9DA00CB2-051F-4F58-80BF-6AB797A98674}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
