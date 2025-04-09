@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "labels": ["dependencies"],
+  "automerge": true,
+  "prHourlyLimit": 5,
+  "timezone": "Europe/Zurich",
+
+  "reviewers": ["Janobob"],
+
+  "packageRules": [
+    {
+      "matchPackagePrefixes": ["@angular"],
+      "groupName": "Angular packages",
+      "matchUpdateTypes": ["minor", "patch"]
+    }
+  ],
+
+  "requiredStatusChecks": ["build", "SonarCloud"]
+}
