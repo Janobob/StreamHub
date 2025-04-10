@@ -21,7 +21,8 @@
       ],
       "matchPackageNames": [
         "@angular{/,}**"
-      ]
+      ],
+      "automerge": true
     }
   ]
 }
