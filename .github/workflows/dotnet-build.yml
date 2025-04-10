@@ -25,6 +25,9 @@ jobs:
               run: |
                   dotnet tool install --global coverlet.console
                   dotnet tool install --global dotnet-sonarscanner
+                  dotnet tool install --global dotnet-reportgenerator-globaltool
+              env:
+                  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
 
             - name: Restore dependencies
               run: dotnet restore StreamHub.sln
@@ -37,20 +40,33 @@ jobs:
                     /n:"StreamHub" \
                     /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
                     /d:sonar.verbose="true" \
-                    /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
+                    /d:sonar.cs.opencover.reportsPaths="coverage.opencover.xml" \
                     /d:sonar.exclusions="**/bin/**,**/obj/**,**/*.g.cs,**/*.designer.cs,**/*.AssemblyInfo.cs"
 
             - name: Build Solution
               run: dotnet build StreamHub.sln --configuration Release --no-restore
 
-            - name: Run Tests with Coverage
+            - name: Run Tests with Coverage and Merge Results
               run: |
-                  dotnet test StreamHub.sln \
-                    --no-build \
-                    --configuration Release \
-                    /p:CollectCoverage=true \
-                    /p:CoverletOutputFormat=opencover \
-                    /p:CoverletOutput=$(pwd)/coverage.opencover.xml
+                  mkdir -p coverage
+
+                  for proj in $(find . -name "*.csproj" | grep -E "Test"); do
+                    echo "Testing $proj..."
+                    dotnet test "$proj" \
+                      --no-build \
+                      --configuration Release \
+                      /p:CollectCoverage=true \
+                      /p:CoverletOutputFormat=opencover \
+                      /p:CoverletOutput=coverage/$(basename $proj).xml
+                  done
+
+                  reportgenerator \
+                    -reports:coverage/*.xml \
+                    -targetdir:coverage/report \
+                    -reporttypes:HtmlSummary;Cobertura;opencover
+
+                  # Rename merged file for SonarCloud
+                  cp coverage/report/Summary.opencover.xml coverage.opencover.xml
 
             - name: Verify coverage report
               run: |
