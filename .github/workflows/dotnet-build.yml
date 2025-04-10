@@ -46,17 +46,18 @@ jobs:
 
             - name: Run Tests with Coverage (per project)
               run: |
-                  mkdir -p coverage
+                  COVERAGE_DIR=$(pwd)/coverage
+                  mkdir -p "$COVERAGE_DIR"
 
                   for proj in $(find . -name "*.csproj" | grep -E "Test"); do
-                    name=$(basename $proj .csproj)
+                    name=$(basename "$proj" .csproj)
                     echo "Testing $proj..."
                     dotnet test "$proj" \
                       --no-build \
                       --configuration Release \
                       /p:CollectCoverage=true \
                       /p:CoverletOutputFormat=opencover \
-                      /p:CoverletOutput=coverage/$name.xml
+                      /p:CoverletOutput="$COVERAGE_DIR/$name.xml"
                   done
 
             - name: Merge Coverage Reports
