@@ -80,8 +80,8 @@ jobs:
             - name: End Sonar scan
               run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-            - name: Upload HTML Coverage Report
-              uses: actions/upload-artifact@v4
-              with:
-                  name: html-coverage
-                  path: coverage/report
+            # - name: Upload HTML Coverage Report
+            #   uses: actions/upload-artifact@v4
+            #   with:
+            #       name: html-coverage
+            #       path: coverage/report
