@@ -38,7 +38,7 @@ jobs:
                     /n:"StreamHub" \
                     /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
                     /d:sonar.verbose="true" \
-                    /d:sonar.cs.opencover.reportsPaths="**/*.opencover.xml" \
+                    /d:sonar.cs.opencover.reportsPaths="**/coverage/*.xml" \
                     /d:sonar.exclusions="**/bin/**,**/obj/**,**/*.g.cs,**/*.designer.cs,**/*.AssemblyInfo.cs"
 
             - name: Build solution
