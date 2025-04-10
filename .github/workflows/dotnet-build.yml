@@ -38,7 +38,7 @@ jobs:
                     /n:"StreamHub" \
                     /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
                     /d:sonar.verbose="true" \
-                    /d:sonar.cs.opencover.reportsPaths="coverage.opencover.xml" \
+                    /d:sonar.cs.opencover.reportsPaths="**/*.opencover.xml" \
                     /d:sonar.exclusions="**/bin/**,**/obj/**,**/*.g.cs,**/*.designer.cs,**/*.AssemblyInfo.cs"
 
             - name: Build solution
@@ -60,22 +60,22 @@ jobs:
                       /p:CoverletOutput="$COVERAGE_DIR/$name.xml"
                   done
 
-            - name: Merge Coverage Reports
-              run: |
-                  mkdir -p coverage/report
+            # - name: Merge Coverage Reports
+            #   run: |
+            #       mkdir -p coverage/report
 
-                  reportgenerator \
-                    -reports:"coverage/*.xml" \
-                    -targetdir:"coverage/report" \
-                    -reporttypes:HtmlSummary;Cobertura;opencover
+            #       reportgenerator \
+            #         -reports:"coverage/*.xml" \
+            #         -targetdir:"coverage/report" \
+            #         -reporttypes:HtmlSummary;Cobertura;opencover
 
-                  cp coverage/report/Summary.opencover.xml coverage.opencover.xml
+            #       cp coverage/report/Summary.opencover.xml coverage.opencover.xml
 
-            - name: Upload Coverage Report
-              uses: actions/upload-artifact@v4
-              with:
-                  name: coverage-report
-                  path: coverage.opencover.xml
+            # - name: Upload Coverage Report
+            #   uses: actions/upload-artifact@v4
+            #   with:
+            #       name: coverage-report
+            #       path: coverage.opencover.xml
 
             - name: End Sonar scan
               run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
