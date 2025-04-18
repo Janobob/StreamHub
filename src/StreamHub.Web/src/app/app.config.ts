@@ -3,22 +3,29 @@ import {
   provideZoneChangeDetection,
   inject,
 } from '@angular/core';
+import Aura from '@primeng/themes/aura';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
-
 import { routes } from './app.routes';
 import { AppConfig } from './core/config/app-config.model';
 import { APP_CONFIG } from './core/config/app-config.token';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const appRuntimeConfig: AppConfig = {
   useGraphQL: true,
 };
+
+const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
+  http: HttpClient
+) => new TranslateHttpLoader(http, './i18n/', '.json');
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,6 +54,16 @@ export const appConfig: ApplicationConfig = {
         }),
         cache: new InMemoryCache(),
       };
+    }),
+    provideStore(),
+    provideEffects(),
+    provideTranslateService({
+      defaultLanguage: 'de',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient],
+      },
     }),
   ],
 };
