@@ -18,9 +18,10 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideLibraryFeature } from './features/library/library.providers';
 
 const appRuntimeConfig: AppConfig = {
-  useGraphQL: true,
+  useGraphQL: false,
 };
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
@@ -65,5 +66,7 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient],
       },
     }),
+    // features
+    provideLibraryFeature(),
   ],
 };
