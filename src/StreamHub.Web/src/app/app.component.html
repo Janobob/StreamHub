@@ -5,7 +5,7 @@
 >
   <!-- Topbar -->
   <div
-    class="h-4rem flex-shrink-0 flex align-items-center px-4 shadow-2 z-1 surface-50"
+    class="h-4rem flex-shrink-0 flex align-items-center px-4 shadow-2 z-1 surface-card"
   >
     {{ "app.title" | translate }}
     <p-button
@@ -25,12 +25,12 @@
 
   <div class="flex flex-1 overflow-hidden">
     <!-- Sidebar -->
-    <div class="w-16rem flex-shrink-0 p-3 overflow-y-auto surface-50">
+    <div class="w-16rem flex-shrink-0 p-3 overflow-y-auto surface-card">
       <app-library-sidebar></app-library-sidebar>
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 overflow-auto p-4 surface-0">
+    <div class="flex-1 overflow-auto p-4 surface-ground">
       Main Content
       <div style="height: 2000px">Scroll me!</div>
       <router-outlet></router-outlet>

@@ -5,6 +5,43 @@
 
   "libraries": {
     "title": "Mediatheken",
-    "home": "Startseite"
+    "home": "Startseite",
+    "model": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Geben Sie den Namen der Mediathek ein",
+        "errors": {
+          "required": "Name ist erforderlich",
+          "maxlength": "Name darf maximal {{length}} Zeichen lang sein"
+        }
+      },
+      "description": {
+        "label": "Beschreibung",
+        "placeholder": "Geben Sie eine Beschreibung der Mediathek ein",
+        "errors": {
+          "maxlength": "Beschreibung darf maximal {{length}} Zeichen lang sein"
+        }
+      },
+      "path": {
+        "label": "Pfad",
+        "placeholder": "Geben Sie den Pfad der Mediathek ein",
+        "errors": {
+          "required": "Pfad ist erforderlich",
+          "maxlength": "Pfad darf maximal {{length}} Zeichen lang sein"
+        }
+      }
+    },
+    "form": {
+      "title": {
+        "create": "Mediathek erstellen",
+        "edit": "Mediathek bearbeiten"
+      },
+      "actions": {
+        "create": "Erstellen",
+        "edit": "Speichern",
+        "delete": "Löschen",
+        "cancel": "Abbrechen"
+      }
+    }
   }
 }
