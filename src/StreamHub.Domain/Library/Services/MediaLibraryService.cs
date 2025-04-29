@@ -53,12 +53,12 @@ public class MediaLibraryService : IMediaLibraryService
     /// <inheritdoc />
     public async Task<Result<MediaLibrary>> AddMediaLibraryAsync(MediaLibrary mediaLibrary)
     {
-        await _repo.AddAsync(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
+        var entity = await _repo.AddAsync(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
         await _repo.SaveChangesAsync();
 
         await _mediator.Publish(new MediaLibraryAddedNotification(mediaLibrary));
 
-        return Result<MediaLibrary>.Success(mediaLibrary);
+        return Result<MediaLibrary>.Success(_mapper.Map<MediaLibrary>(entity));
     }
 
     /// <inheritdoc />

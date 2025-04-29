@@ -36,5 +36,8 @@ export class LibrarySidebarComponent {
     this.libraryFormDialog.open();
   }
 
-  onSaveLibrary(library: Library) {}
+  onSaveLibrary(library: Library) {
+    this.facade.create(library);
+    this.libraryFormDialog.close();
+  }
 }

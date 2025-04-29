@@ -15,7 +15,7 @@ export function toRequest(model: Library): LibraryRequest {
   return {
     id: model.id,
     name: model.name,
-    description: model.description,
+    description: model.description ?? '',
     path: model.path,
   };
 }

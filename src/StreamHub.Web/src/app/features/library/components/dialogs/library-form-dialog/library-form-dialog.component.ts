@@ -64,11 +64,10 @@ export class LibraryFormDialogComponent {
     if (this.form.valid) {
       const updatedLibrary: Library = {
         ...this.library,
-        name: this.form.value.name,
+        ...this.form.value,
       } as Library;
 
       this.saveLibrary.emit(updatedLibrary);
-      this.close();
     } else {
       this.form.markAllAsTouched();
     }

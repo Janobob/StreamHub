@@ -5,6 +5,43 @@
 
   "libraries": {
     "title": "Media Libraries",
-    "home": "Home"
+    "home": "Home",
+    "model": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter the name of the media library",
+        "errors": {
+          "required": "Name is required",
+          "maxlength": "Name can have a maximum of {{length}} characters"
+        }
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Enter a description for the media library",
+        "errors": {
+          "maxlength": "Description can have a maximum of {{length}} characters"
+        }
+      },
+      "path": {
+        "label": "Path",
+        "placeholder": "Enter the path of the media library",
+        "errors": {
+          "required": "Path is required",
+          "maxlength": "Path can have a maximum of {{length}} characters"
+        }
+      }
+    },
+    "form": {
+      "title": {
+        "create": "Create Media Library",
+        "edit": "Edit Media Library"
+      },
+      "actions": {
+        "create": "Create",
+        "edit": "Save",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      }
+    }
   }
 }

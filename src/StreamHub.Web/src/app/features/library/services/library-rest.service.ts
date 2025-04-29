@@ -5,6 +5,7 @@ import { Library } from '../models/library.model';
 import { HttpClient } from '@angular/common/http';
 import { LibraryResponse } from '../models/library.response';
 import { toModel, toRequest } from '../models/ibrary.mapper';
+import { LibraryRequest } from '../models/library.request';
 
 @Injectable({
   providedIn: 'root',

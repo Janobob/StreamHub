@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   inject,
+  isDevMode,
 } from '@angular/core';
 import Aura from '@primeng/themes/aura';
 import { provideRouter } from '@angular/router';
@@ -19,6 +20,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideLibraryFeature } from './features/library/library.providers';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 const appRuntimeConfig: AppConfig = {
   useGraphQL: false,
@@ -48,7 +50,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
-
       return {
         link: httpLink.create({
           uri: '/graphql',
@@ -57,6 +58,7 @@ export const appConfig: ApplicationConfig = {
       };
     }),
     provideStore(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects(),
     provideTranslateService({
       defaultLanguage: 'de',
