@@ -45,6 +45,7 @@
           formControlName="description"
           [placeholder]="'libraries.model.description.placeholder' | translate"
           rows="5"
+          style="resize: vertical"
         ></textarea>
 
         @if(form.get('description')?.invalid && form.get('description')?.touched
