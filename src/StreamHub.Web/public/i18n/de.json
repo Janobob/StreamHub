@@ -48,7 +48,8 @@
       },
       "actions": {
         "create": "Erstellen",
-        "edit": "Speichern",
+        "save": "Speichern",
+        "edit": "Bearbeiten",
         "delete": "Löschen",
         "cancel": "Abbrechen"
       }
@@ -62,6 +63,16 @@
         "error": {
           "title": "Mediathek erstellen fehlgeschlagen",
           "detail": "Die Mediathek konnte nicht erstellt werden."
+        }
+      },
+      "update": {
+        "success": {
+          "title": "Mediathek aktualisiert",
+          "detail": "Die Mediathek \"{{name}}\" wurde erfolgreich aktualisiert."
+        },
+        "error": {
+          "title": "Mediathek aktualisieren fehlgeschlagen",
+          "detail": "Die Mediathek konnte nicht aktualisiert werden."
         }
       },
       "load": {

@@ -1,8 +1,8 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { LibraryFacade } from '../../library.facade';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BadgeModule } from 'primeng/badge';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { LibraryFormDialogComponent } from '../dialogs/library-form-dialog/library-form-dialog.component';
@@ -23,40 +23,47 @@ import { MenuItem } from 'primeng/api';
     LibraryFormDialogComponent,
   ],
 })
-export class LibrarySidebarComponent {
+export class LibrarySidebarComponent implements OnInit {
   private readonly facade = inject(LibraryFacade);
+  private readonly translate = inject(TranslateService);
   readonly libraries = this.facade.libraries;
   readonly loading = this.facade.loading;
 
   @ViewChild(ContextMenu)
   contextMenu!: ContextMenu;
   private selectedLibrary: Library | null = null;
-  contextMenuItems: MenuItem[] = [
-    {
-      label: 'Bearbeiten',
-      icon: 'pi pi-fw pi-pencil',
-      command: () => {
-        if (this.selectedLibrary) {
-          this.onEditLibrary(this.selectedLibrary);
-        }
-      },
-    },
-    {
-      label: 'Löschen',
-      icon: 'pi pi-fw pi-trash',
-      command: () => {
-        if (this.selectedLibrary) {
-          this.onDeleteLibrary(this.selectedLibrary);
-        }
-      },
-    },
-  ];
+  contextMenuItems: MenuItem[] | null = null;
 
   @ViewChild(LibraryFormDialogComponent)
   libraryFormDialog!: LibraryFormDialogComponent;
 
-  constructor() {
+  ngOnInit(): void {
     this.facade.loadAll();
+
+    this.translate
+      .get(['libraries.form.actions.edit', 'libraries.form.actions.delete'])
+      .subscribe((translations) => {
+        this.contextMenuItems = [
+          {
+            label: translations['libraries.form.actions.edit'],
+            icon: 'pi pi-fw pi-pencil',
+            command: () => {
+              if (this.selectedLibrary) {
+                this.onEditLibrary(this.selectedLibrary);
+              }
+            },
+          },
+          {
+            label: translations['libraries.form.actions.delete'],
+            icon: 'pi pi-fw pi-trash',
+            command: () => {
+              if (this.selectedLibrary) {
+                this.onDeleteLibrary(this.selectedLibrary);
+              }
+            },
+          },
+        ];
+      });
   }
 
   onAddLibrary() {
@@ -69,8 +76,13 @@ export class LibrarySidebarComponent {
 
   onDeleteLibrary(library: Library) {}
 
-  onSaveLibrary(library: Library) {
+  onCreateLibrary(library: Library) {
     this.facade.create(library);
+    this.libraryFormDialog.close();
+  }
+
+  onUpdateLibrary(library: Library) {
+    this.facade.update(library);
     this.libraryFormDialog.close();
   }
 

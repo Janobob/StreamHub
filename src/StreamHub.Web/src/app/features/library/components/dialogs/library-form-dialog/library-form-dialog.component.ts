@@ -30,7 +30,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class LibraryFormDialogComponent {
   @Input() library?: Library;
-  @Output() saveLibrary = new EventEmitter<Library>();
+  @Output() createLibrary = new EventEmitter<Library>();
+  @Output() updateLibrary = new EventEmitter<Library>();
 
   private fb = inject(FormBuilder);
 
@@ -53,6 +54,10 @@ export class LibraryFormDialogComponent {
   public open(library?: Library) {
     this.visible = true;
     this.library = library;
+
+    if (library) {
+      this.form.patchValue(library);
+    }
   }
 
   public close() {
@@ -67,9 +72,12 @@ export class LibraryFormDialogComponent {
         ...this.form.value,
       } as Library;
 
-      this.saveLibrary.emit(updatedLibrary);
-    } else {
-      this.form.markAllAsTouched();
+      if (this.library?.id) {
+        this.updateLibrary.emit(updatedLibrary);
+      } else {
+        this.createLibrary.emit(updatedLibrary);
+      }
+      this.close();
     }
   }
 }

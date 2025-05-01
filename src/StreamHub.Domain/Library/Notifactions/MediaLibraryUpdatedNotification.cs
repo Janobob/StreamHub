@@ -1,4 +1,5 @@
-﻿using StreamHub.Domain.Library.Models;
+﻿using MediatR;
+using StreamHub.Domain.Library.Models;
 
 namespace StreamHub.Domain.Library.Notifactions;
 
@@ -6,6 +7,6 @@ namespace StreamHub.Domain.Library.Notifactions;
 ///     Notification for when a media library is updated.
 /// </summary>
 /// <param name="MediaLibrary">The media library that was updated.</param>
-public record MediaLibraryUpdatedNotification(MediaLibrary MediaLibrary)
+public record MediaLibraryUpdatedNotification(MediaLibrary MediaLibrary) : INotification
 {
 }

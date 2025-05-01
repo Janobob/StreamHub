@@ -157,4 +157,45 @@ export class LibraryEffects {
       ),
     { dispatch: false }
   );
+
+  updateLibrarySuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.updateLibrarySuccess),
+        tap(({ library }) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant(
+              'libraries.messages.update.success.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.update.success.detail',
+              { name: library.name }
+            ),
+            life: 3000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  updateLibraryFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.updateLibraryFailure),
+        tap(() => {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translate.instant(
+              'libraries.messages.update.error.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.update.error.detail'
+            ),
+            life: 5000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
 }

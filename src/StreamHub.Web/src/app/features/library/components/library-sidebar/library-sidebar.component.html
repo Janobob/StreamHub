@@ -51,10 +51,11 @@
 
 <p-contextmenu
   #contextMenu
-  [model]="contextMenuItems"
+  [model]="contextMenuItems!"
   (onHide)="onContextMenuHide()"
 />
 <app-library-form-dialog
   #libraryFormDialog
-  (saveLibrary)="onSaveLibrary($event)"
+  (createLibrary)="onCreateLibrary($event)"
+  (updateLibrary)="onUpdateLibrary($event)"
 />

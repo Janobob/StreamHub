@@ -48,7 +48,8 @@
       },
       "actions": {
         "create": "Create",
-        "edit": "Save",
+        "save": "Save",
+        "edit": "Edit",
         "delete": "Delete",
         "cancel": "Cancel"
       }
@@ -62,6 +63,16 @@
         "error": {
           "title": "Library Creation Failed",
           "detail": "The library could not be created."
+        }
+      },
+      "update": {
+        "success": {
+          "title": "Library Updated",
+          "detail": "The library \"{{name}}\" was successfully updated."
+        },
+        "error": {
+          "title": "Library Update Failed",
+          "detail": "The library could not be updated."
         }
       },
       "load": {
