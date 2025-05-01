@@ -21,9 +21,11 @@ import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideLibraryFeature } from './features/library/library.providers';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { MessageService } from 'primeng/api';
 
 const appRuntimeConfig: AppConfig = {
   useGraphQL: false,
+  healthCheckInterval: 60000, // 1 minute
 };
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
@@ -43,6 +45,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    MessageService,
     {
       provide: APP_CONFIG,
       useValue: appRuntimeConfig,

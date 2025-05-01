@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from 'primeng/badge';
 import { LibraryFormDialogComponent } from '../dialogs/library-form-dialog/library-form-dialog.component';
 import { Library } from '../../models/library.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   standalone: true,

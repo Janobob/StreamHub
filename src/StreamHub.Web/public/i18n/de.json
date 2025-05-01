@@ -1,6 +1,16 @@
 {
   "app": {
-    "title": "StreamHub"
+    "title": "StreamHub",
+    "messages": {
+      "backendUnavailable": {
+        "title": "Verbindung fehlgeschlagen",
+        "detail": "Verbindung zum Server fehlgeschlagen. Bitte versuchen Sie es später erneut."
+      },
+      "backendAvailable": {
+        "title": "Verbindung hergestellt",
+        "detail": "Die Verbindung zum Server wurde wiederhergestellt. Bitte aktualisieren Sie die Seite, um die neuesten Daten zu laden."
+      }
+    }
   },
 
   "libraries": {
@@ -41,6 +51,28 @@
         "edit": "Speichern",
         "delete": "Löschen",
         "cancel": "Abbrechen"
+      }
+    },
+    "messages": {
+      "create": {
+        "success": {
+          "title": "Mediathek erstellt",
+          "detail": "Die Mediathek \"{{name}}\" wurde erfolgreich erstellt."
+        },
+        "error": {
+          "title": "Mediathek erstellen fehlgeschlagen",
+          "detail": "Die Mediathek konnte nicht erstellt werden."
+        }
+      },
+      "load": {
+        "error": {
+          "title": "Mediatheken laden fehlgeschlagen",
+          "detail": "Die Mediatheken konnten nicht geladen werden."
+        },
+        "backendUnavailable": {
+          "title": "Mediatheken laden fehlgeschlagen",
+          "detail": "Verbindung zum Server fehlgeschlagen. Bitte versuchen Sie es später erneut."
+        }
       }
     }
   }

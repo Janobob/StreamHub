@@ -1,13 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { LibraryService } from '../services/library.service';
 import * as LibraryActions from './library.actions';
+import { MessageService } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class LibraryEffects {
   private actions$ = inject(Actions);
   private service = inject(LibraryService);
+  private messageService = inject(MessageService);
+  private translate = inject(TranslateService);
 
   loadLibraries$ = createEffect(() =>
     this.actions$.pipe(
@@ -83,5 +87,74 @@ export class LibraryEffects {
         )
       )
     )
+  );
+
+  createLibrarySuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.createLibrarySuccess),
+        tap(({ library }) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant(
+              'libraries.messages.create.success.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.create.success.detail',
+              { name: library.name }
+            ),
+            life: 3000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  createLibraryFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.createLibraryFailure),
+        tap(() => {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translate.instant(
+              'libraries.messages.create.error.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.create.error.detail'
+            ),
+            life: 5000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  loadLibrariesFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.loadLibrariesFailure),
+        tap(({ error }) => {
+          const isConnectionError =
+            !error || error?.status === 0 || error?.status === 503;
+          const basePath = 'libraries.messages.load';
+
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translate.instant(
+              `${basePath}.${
+                isConnectionError ? 'backendUnavailable' : 'error'
+              }.title`
+            ),
+            detail: this.translate.instant(
+              `${basePath}.${
+                isConnectionError ? 'backendUnavailable' : 'error'
+              }.detail`
+            ),
+            life: 5000,
+          });
+        })
+      ),
+    { dispatch: false }
   );
 }

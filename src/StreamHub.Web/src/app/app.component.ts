@@ -3,10 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { StyleClassModule } from 'primeng/styleclass';
-import { Toast } from 'primeng/toast';
+import { ToastModule } from 'primeng/toast';
 import { LibrarySidebarComponent } from './features/library/components/library-sidebar/library-sidebar.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { HealthService } from './core/services/health.service';
+import { AppConfig } from './core/config/app-config.model';
+import { APP_CONFIG } from './core/config/app-config.token';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +18,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     ButtonModule,
     SelectModule,
-    Toast,
+    ToastModule,
     StyleClassModule,
     LibrarySidebarComponent,
     TranslatePipe,
@@ -30,6 +33,9 @@ export class AppComponent {
   translate = inject(TranslateService);
   currentLanguage = 'de';
   languages = ['de', 'en'];
+
+  health = inject(HealthService);
+  config = inject<AppConfig>(APP_CONFIG);
 
   constructor() {
     // theme switching
@@ -49,6 +55,9 @@ export class AppComponent {
       ? browserLang
       : this.currentLanguage;
     this.translate.use(lang);
+
+    // health check
+    this.health.startHealthMonitor(this.config.healthCheckInterval);
   }
 
   toggleTheme() {

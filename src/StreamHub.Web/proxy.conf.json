@@ -8,5 +8,10 @@
     "target": "https://localhost:5000",
     "secure": false,
     "changeOrigin": true
+  },
+  "/health": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "changeOrigin": true
   }
 }

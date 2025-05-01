@@ -88,6 +88,9 @@ public class Startup
             .AddQueryType<Query>()
             .AddTypeExtension<MetaDataQuery>()
             .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
+
+        // Health Checks
+        services.AddHealthChecks();
     }
 
     /// <summary>
@@ -121,6 +124,7 @@ public class Startup
             endpoints.MapControllers();
             endpoints.MapGraphQL();
             endpoints.MapGraphQLWebSocket();
+            endpoints.MapHealthChecks("/health");
         });
     }
 }
