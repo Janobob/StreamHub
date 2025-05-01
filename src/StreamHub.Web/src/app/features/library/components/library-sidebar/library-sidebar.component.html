@@ -8,11 +8,14 @@
   ></p-button>
 </div>
 
-@if(loading()){
-<p-skeleton styleClass="mb-2" height="2rem" />
-<p-skeleton styleClass="mb-2" height="2rem" />
-} @else {
 <div class="flex flex-column gap-1">
+  @if(loading()){
+  <p-skeleton height="50px" />
+  <p-skeleton height="50px" />
+  <p-skeleton height="50px" />
+  <p-skeleton height="50px" />
+  <p-skeleton height="50px" />
+  } @else {
   <div
     class="hover:surface-50 w-full px-2 py-2 border-round flex align-items-center cursor-pointer"
   >
@@ -30,6 +33,7 @@
   @for(library of libraries(); track library.id){
   <div
     class="hover:surface-50 w-full px-2 py-2 border-round flex align-items-center cursor-pointer"
+    (contextmenu)="onContextMenuOpen($event, library)"
   >
     <img
       [src]="'https://api.dicebear.com/9.x/glass/svg?seed=' + library.id"
@@ -42,10 +46,14 @@
     {{ library.name }}
     <p-badge value="0" styleClass="ml-auto" />
   </div>
-  }
+  } }
 </div>
-}
 
+<p-contextmenu
+  #contextMenu
+  [model]="contextMenuItems"
+  (onHide)="onContextMenuHide()"
+/>
 <app-library-form-dialog
   #libraryFormDialog
   (saveLibrary)="onSaveLibrary($event)"
