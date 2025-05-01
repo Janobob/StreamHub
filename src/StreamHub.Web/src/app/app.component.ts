@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { StyleClassModule } from 'primeng/styleclass';
+import { Toast } from 'primeng/toast';
 import { LibrarySidebarComponent } from './features/library/components/library-sidebar/library-sidebar.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     ButtonModule,
     SelectModule,
+    Toast,
     StyleClassModule,
     LibrarySidebarComponent,
     TranslatePipe,
