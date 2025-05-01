@@ -1,5 +1,8 @@
 name: .NET Build and Test Coverage
 
+permissions:
+    contents: read
+
 on:
     push:
         branches: [master]
