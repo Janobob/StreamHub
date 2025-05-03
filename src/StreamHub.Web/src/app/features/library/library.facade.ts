@@ -38,16 +38,4 @@ export class LibraryFacade {
   delete(id: number) {
     this.store.dispatch(LibraryActions.deleteLibrary({ id }));
   }
-
-  onLibraryCreated(lib: Library) {
-    this.store.dispatch(LibraryActions.libraryCreated({ library: lib }));
-  }
-
-  onLibraryUpdated(lib: Library) {
-    this.store.dispatch(LibraryActions.libraryUpdated({ library: lib }));
-  }
-
-  onLibraryDeleted(id: number) {
-    this.store.dispatch(LibraryActions.libraryDeleted({ id }));
-  }
 }

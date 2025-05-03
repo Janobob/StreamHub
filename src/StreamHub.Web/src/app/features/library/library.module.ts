@@ -4,6 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { LibrarySidebarComponent } from './components/library-sidebar/library-sidebar.component';
 import { provideLibraryFeature } from './library.providers';
 import { LibraryFormDialogComponent } from './components/dialogs/library-form-dialog/library-form-dialog.component';
+import { LibraryDeleteDialogComponent } from './components/dialogs/library-delete-dialog/library-delete-dialog.component';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { LibraryFormDialogComponent } from './components/dialogs/library-form-di
     LibraryRoutingModule,
     LibrarySidebarComponent,
     LibraryFormDialogComponent,
+    LibraryDeleteDialogComponent,
   ],
   providers: [provideLibraryFeature()],
 })

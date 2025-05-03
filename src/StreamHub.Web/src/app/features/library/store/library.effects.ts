@@ -198,4 +198,45 @@ export class LibraryEffects {
       ),
     { dispatch: false }
   );
+
+  deleteLibrarySuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.deleteLibrarySuccess),
+        tap(({ id }) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant(
+              'libraries.messages.delete.success.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.delete.success.detail',
+              { id }
+            ),
+            life: 3000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deleteLibraryFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.deleteLibraryFailure),
+        tap(() => {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translate.instant(
+              'libraries.messages.delete.error.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.delete.error.detail'
+            ),
+            life: 5000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
 }

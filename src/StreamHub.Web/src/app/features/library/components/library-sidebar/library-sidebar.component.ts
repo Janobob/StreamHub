@@ -8,6 +8,7 @@ import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { LibraryFormDialogComponent } from '../dialogs/library-form-dialog/library-form-dialog.component';
 import { Library } from '../../models/library.model';
 import { MenuItem } from 'primeng/api';
+import { LibraryDeleteDialogComponent } from '../dialogs/library-delete-dialog/library-delete-dialog.component';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ import { MenuItem } from 'primeng/api';
     ContextMenuModule,
     TranslateModule,
     LibraryFormDialogComponent,
+    LibraryDeleteDialogComponent,
   ],
 })
 export class LibrarySidebarComponent implements OnInit {
@@ -36,6 +38,9 @@ export class LibrarySidebarComponent implements OnInit {
 
   @ViewChild(LibraryFormDialogComponent)
   libraryFormDialog!: LibraryFormDialogComponent;
+
+  @ViewChild(LibraryDeleteDialogComponent)
+  libraryDeleteDialog!: LibraryDeleteDialogComponent;
 
   ngOnInit(): void {
     this.facade.loadAll();
@@ -58,7 +63,7 @@ export class LibrarySidebarComponent implements OnInit {
             icon: 'pi pi-fw pi-trash',
             command: () => {
               if (this.selectedLibrary) {
-                this.onDeleteLibrary(this.selectedLibrary);
+                this.onDeleteDialogLibrary(this.selectedLibrary);
               }
             },
           },
@@ -74,7 +79,14 @@ export class LibrarySidebarComponent implements OnInit {
     this.libraryFormDialog.open(library);
   }
 
-  onDeleteLibrary(library: Library) {}
+  onDeleteDialogLibrary(library: Library) {
+    this.libraryDeleteDialog.open(library);
+  }
+
+  onDeleteLibrary(library: Library) {
+    this.facade.delete(library.id);
+    this.libraryDeleteDialog.close();
+  }
 
   onCreateLibrary(library: Library) {
     this.facade.create(library);

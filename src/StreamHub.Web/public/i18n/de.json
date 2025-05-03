@@ -44,7 +44,11 @@
     "form": {
       "title": {
         "create": "Mediathek erstellen",
-        "edit": "Mediathek bearbeiten"
+        "edit": "Mediathek bearbeiten",
+        "delete": "Mediathek löschen"
+      },
+      "description": {
+        "delete": "Sind Sie sicher, dass Sie die Mediathek \"{{name}}\" löschen möchten?"
       },
       "actions": {
         "create": "Erstellen",
@@ -83,6 +87,16 @@
         "backendUnavailable": {
           "title": "Mediatheken laden fehlgeschlagen",
           "detail": "Verbindung zum Server fehlgeschlagen. Bitte versuchen Sie es später erneut."
+        }
+      },
+      "delete": {
+        "success": {
+          "title": "Mediathek gelöscht",
+          "detail": "Die Mediathek mit Id \"{{id}}\" wurde erfolgreich gelöscht."
+        },
+        "error": {
+          "title": "Mediathek löschen fehlgeschlagen",
+          "detail": "Die Mediathek konnte nicht gelöscht werden."
         }
       }
     }
