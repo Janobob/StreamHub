@@ -24,7 +24,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { MessageService } from 'primeng/api';
 
 const appRuntimeConfig: AppConfig = {
-  useGraphQL: false,
+  useGraphQL: true,
   healthCheckInterval: 60000, // 1 minute
 };
 

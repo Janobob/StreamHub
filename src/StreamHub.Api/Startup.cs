@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using StreamHub.Api.Extensions;
+using StreamHub.Api.GraphQl.Mutations;
 using StreamHub.Api.GraphQl.Queries;
 using StreamHub.Api.Middlewares;
 using StreamHub.Api.Models;
@@ -87,6 +88,9 @@ public class Startup
         services.AddGraphQLServer()
             .AddQueryType<Query>()
             .AddTypeExtension<MetaDataQuery>()
+            .AddTypeExtension<LibrariesQuery>()
+            .AddMutationType<Mutation>()
+            .AddTypeExtension<LibrariesMutation>()
             .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
 
         // Health Checks

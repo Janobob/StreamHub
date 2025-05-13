@@ -5,7 +5,6 @@ import { LibraryGraphqlService } from './library-graphql.service';
 import { Observable } from 'rxjs';
 import { Library } from '../models/library.model';
 import { LibraryDataService } from './library-data.service';
-import { LibraryRequest } from '../models/library.request';
 
 @Injectable({
   providedIn: 'root',

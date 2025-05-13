@@ -14,10 +14,10 @@ export class LibraryGraphqlService implements LibraryDataService {
 
   getAll(): Observable<Library[]> {
     return this.apollo
-      .query<{ getAllMediaLibrariesAsync: LibraryResponse[] }>({
+      .query<{ mediaLibraries: LibraryResponse[] }>({
         query: gql`
           query {
-            getAllMediaLibrariesAsync {
+            mediaLibraries {
               id
               name
               description
@@ -26,15 +26,15 @@ export class LibraryGraphqlService implements LibraryDataService {
           }
         `,
       })
-      .pipe(map((res) => res.data.getAllMediaLibrariesAsync.map(toModel)));
+      .pipe(map((res) => res.data.mediaLibraries.map(toModel)));
   }
 
   get(id: number): Observable<Library> {
     return this.apollo
-      .query<{ getMediaLibraryAsync: LibraryResponse }>({
+      .query<{ mediaLibrary: LibraryResponse }>({
         query: gql`
           query ($id: Int!) {
-            getMediaLibraryAsync(id: $id) {
+            mediaLibrary(id: $id) {
               id
               name
               description
@@ -44,7 +44,7 @@ export class LibraryGraphqlService implements LibraryDataService {
         `,
         variables: { id },
       })
-      .pipe(map((res) => toModel(res.data.getMediaLibraryAsync)));
+      .pipe(map((res) => toModel(res.data.mediaLibrary)));
   }
 
   create(library: Library): Observable<Library> {
@@ -52,7 +52,7 @@ export class LibraryGraphqlService implements LibraryDataService {
       .mutate<{ addMediaLibraryAsync: LibraryResponse }>({
         mutation: gql`
           mutation ($input: MediaLibraryRequestInput!) {
-            addMediaLibraryAsync(mediaLibraryRequest: $input) {
+            addMediaLibrary(mediaLibraryRequest: $input) {
               id
               name
               description
@@ -70,7 +70,7 @@ export class LibraryGraphqlService implements LibraryDataService {
       .mutate<{ updateMediaLibraryAsync: LibraryResponse }>({
         mutation: gql`
           mutation ($input: MediaLibraryRequestInput!) {
-            updateMediaLibraryAsync(mediaLibraryRequest: $input) {
+            updateMediaLibrary(mediaLibraryRequest: $input) {
               id
               name
               description
@@ -88,7 +88,7 @@ export class LibraryGraphqlService implements LibraryDataService {
       .mutate({
         mutation: gql`
           mutation ($id: Int!) {
-            deleteMediaLibraryAsync(id: $id)
+            deleteMediaLibrary(id: $id)
           }
         `,
         variables: { id },
