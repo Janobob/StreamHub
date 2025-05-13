@@ -89,6 +89,7 @@ export class LibrarySidebarComponent implements OnInit {
   }
 
   onCreateLibrary(library: Library) {
+    library.id = 0; // Ensure the ID is set to 0 for new libraries
     this.facade.create(library);
     this.libraryFormDialog.close();
   }

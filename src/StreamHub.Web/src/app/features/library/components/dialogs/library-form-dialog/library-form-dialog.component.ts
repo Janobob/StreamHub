@@ -78,6 +78,9 @@ export class LibraryFormDialogComponent {
         this.createLibrary.emit(updatedLibrary);
       }
       this.close();
+    } else {
+      this.form.markAllAsTouched();
+      this.form.updateValueAndValidity();
     }
   }
 }

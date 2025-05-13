@@ -48,8 +48,9 @@ export class LibraryGraphqlService implements LibraryDataService {
   }
 
   create(library: Library): Observable<Library> {
+    console.log('Creating library:', library);
     return this.apollo
-      .mutate<{ addMediaLibraryAsync: LibraryResponse }>({
+      .mutate<{ addMediaLibrary: LibraryResponse }>({
         mutation: gql`
           mutation ($input: MediaLibraryRequestInput!) {
             addMediaLibrary(mediaLibraryRequest: $input) {
@@ -62,12 +63,12 @@ export class LibraryGraphqlService implements LibraryDataService {
         `,
         variables: { input: toRequest(library) },
       })
-      .pipe(map((res) => toModel(res.data!.addMediaLibraryAsync)));
+      .pipe(map((res) => toModel(res.data!.addMediaLibrary)));
   }
 
   update(library: Library): Observable<Library> {
     return this.apollo
-      .mutate<{ updateMediaLibraryAsync: LibraryResponse }>({
+      .mutate<{ updateMediaLibrary: LibraryResponse }>({
         mutation: gql`
           mutation ($input: MediaLibraryRequestInput!) {
             updateMediaLibrary(mediaLibraryRequest: $input) {
@@ -80,7 +81,7 @@ export class LibraryGraphqlService implements LibraryDataService {
         `,
         variables: { input: toRequest(library) },
       })
-      .pipe(map((res) => toModel(res.data!.updateMediaLibraryAsync)));
+      .pipe(map((res) => toModel(res.data!.updateMediaLibrary)));
   }
 
   delete(id: number): Observable<void> {

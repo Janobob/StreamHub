@@ -2,7 +2,7 @@
 using MediatR;
 using StreamHub.Common.Types;
 using StreamHub.Domain.Library.Models;
-using StreamHub.Domain.Library.Notifactions;
+using StreamHub.Domain.Library.Notifications;
 using StreamHub.Domain.Library.Services.Contracts;
 using StreamHub.Persistence.Entities;
 using StreamHub.Persistence.Repositories.Contracts;
