@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { Library } from '../models/library.model';
 import { HttpClient } from '@angular/common/http';
 import { LibraryResponse } from '../models/library.response';
-import { toModel, toRequest } from '../models/ibrary.mapper';
+import { toModel, toRequest } from '../models/library.mapper';
 import { LibraryRequest } from '../models/library.request';
 
 @Injectable({

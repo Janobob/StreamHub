@@ -4,7 +4,7 @@ import { LibraryDataService } from './library-data.service';
 import { Library } from '../models/library.model';
 import { Observable, map } from 'rxjs';
 import { LibraryResponse } from '../models/library.response';
-import { toModel, toRequest } from '../models/ibrary.mapper';
+import { toModel, toRequest } from '../models/library.mapper';
 
 @Injectable({
   providedIn: 'root',
