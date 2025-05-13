@@ -6,6 +6,7 @@ using StreamHub.Api.Extensions;
 using StreamHub.Api.GraphQl.Mutations;
 using StreamHub.Api.GraphQl.Queries;
 using StreamHub.Api.GraphQl.Subscriptions;
+using StreamHub.Api.Hubs;
 using StreamHub.Api.Middlewares;
 using StreamHub.Api.Models;
 using StreamHub.Persistence.Contexts;
@@ -82,6 +83,9 @@ public class Startup
         // Add MediatR
         services.AddMediatRServices();
 
+        // Add SignalR
+        services.AddSignalRServices();
+
         // Add API controllers
         services.AddControllers();
 
@@ -134,6 +138,7 @@ public class Startup
             endpoints.MapGraphQL();
             endpoints.MapGraphQLWebSocket();
             endpoints.MapHealthChecks("/health");
+            endpoints.MapHub<LibraryHub>("/hub/libraries");
         });
     }
 }

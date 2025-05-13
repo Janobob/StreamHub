@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StreamHub.Api.Hubs.Notifiers;
 using StreamHub.Api.MediatR;
 using StreamHub.Domain.Library.Models;
 using StreamHub.Domain.Library.Services;
@@ -103,6 +104,14 @@ public static class ServiceCollectionExtensions
             var logger = provider.GetRequiredService<ILogger<LoggingMediator>>();
             return new LoggingMediator(inner, logger);
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddSignalRServices(this IServiceCollection services)
+    {
+        services.AddSignalR();
+        services.AddScoped<ILibraryHubNotifier, LibraryHubNotifier>();
 
         return services;
     }

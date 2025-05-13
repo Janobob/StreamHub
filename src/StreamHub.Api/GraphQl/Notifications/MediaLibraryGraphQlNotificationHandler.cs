@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using HotChocolate.Subscriptions;
 using MediatR;
+using StreamHub.Domain.Library.Notifications;
 
-namespace StreamHub.Domain.Library.Notifications;
+namespace StreamHub.Api.GraphQl.Notifications;
 
 public class MediaLibraryGraphQlNotificationHandler :
     INotificationHandler<MediaLibraryAddedNotification>,
