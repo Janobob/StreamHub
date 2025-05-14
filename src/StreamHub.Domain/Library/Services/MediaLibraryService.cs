@@ -56,7 +56,7 @@ public class MediaLibraryService : IMediaLibraryService
         var entity = await _repo.AddAsync(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
         await _repo.SaveChangesAsync();
 
-        await _mediator.Publish(new MediaLibraryAddedNotification(mediaLibrary));
+        await _mediator.Publish(new MediaLibraryAddedNotification(_mapper.Map<MediaLibrary>(entity)));
 
         return Result<MediaLibrary>.Success(_mapper.Map<MediaLibrary>(entity));
     }

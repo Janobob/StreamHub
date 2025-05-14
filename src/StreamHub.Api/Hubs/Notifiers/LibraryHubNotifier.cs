@@ -14,16 +14,16 @@ public class LibraryHubNotifier : ILibraryHubNotifier
 
     public Task NotifyAdded(MediaLibraryResponse dto, CancellationToken cancellationToken = default)
     {
-        return _hubContext.Clients.All.SendAsync("mediaLibraryAdded", dto, cancellationToken);
+        return _hubContext.Clients.All.SendAsync("LibraryAdded", dto, cancellationToken);
     }
 
     public Task NotifyUpdated(MediaLibraryResponse dto, CancellationToken cancellationToken = default)
     {
-        return _hubContext.Clients.All.SendAsync("mediaLibraryUpdated", dto, cancellationToken);
+        return _hubContext.Clients.All.SendAsync("LibraryUpdated", dto, cancellationToken);
     }
 
     public Task NotifyDeleted(int id, CancellationToken cancellationToken = default)
     {
-        return _hubContext.Clients.All.SendAsync("mediaLibraryDeleted", id, cancellationToken);
+        return _hubContext.Clients.All.SendAsync("LibraryDeleted", id, cancellationToken);
     }
 }

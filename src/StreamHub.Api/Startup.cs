@@ -138,7 +138,7 @@ public class Startup
             endpoints.MapGraphQL();
             endpoints.MapGraphQLWebSocket();
             endpoints.MapHealthChecks("/health");
-            endpoints.MapHub<LibraryHub>("/hub/libraries");
+            endpoints.MapHub<LibraryHub>("/hubs/libraries");
         });
     }
 }

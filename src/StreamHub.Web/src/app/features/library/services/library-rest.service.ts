@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { LibraryDataService } from './library-data.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { Library } from '../models/library.model';
 import { HttpClient } from '@angular/common/http';
 import { LibraryResponse } from '../models/library.response';
+import * as signalR from '@microsoft/signalr';
 import { toModel, toRequest } from '../models/library.mapper';
-import { LibraryRequest } from '../models/library.request';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,41 @@ import { LibraryRequest } from '../models/library.request';
 export class LibraryRestService implements LibraryDataService {
   private readonly apiUrl = '/api/libraries';
   private readonly http = inject(HttpClient);
+
+  private hubConnection!: signalR.HubConnection;
+  private createdSubject = new Subject<Library>();
+  created$ = this.createdSubject.asObservable();
+  private updatedSubject = new Subject<Library>();
+  updated$ = this.updatedSubject.asObservable();
+  private deletedSubject = new Subject<number>();
+  deleted$ = this.deletedSubject.asObservable();
+
+  constructor() {
+    this.startSignalR();
+  }
+
+  private startSignalR() {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl('/hubs/libraries')
+      .withAutomaticReconnect()
+      .build();
+
+    this.hubConnection.on('libraryCreated', (library: LibraryResponse) => {
+      this.createdSubject.next(toModel(library));
+    });
+    this.hubConnection.on('libraryUpdated', (library: LibraryResponse) => {
+      this.updatedSubject.next(toModel(library));
+    });
+    this.hubConnection.on('libraryDeleted', (id: number) => {
+      this.deletedSubject.next(id);
+    });
+
+    this.hubConnection
+      .start()
+      .catch((err) =>
+        console.error('Error establishing SignalR connection', err)
+      );
+  }
 
   getAll(): Observable<Library[]> {
     return this.http

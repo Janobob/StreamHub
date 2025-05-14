@@ -7,4 +7,8 @@ export interface LibraryDataService {
   create(library: Library): Observable<Library>;
   update(library: Library): Observable<Library>;
   delete(id: number): Observable<void>;
+
+  created$: Observable<Library>;
+  updated$: Observable<Library>;
+  deleted$: Observable<number>;
 }

@@ -14,7 +14,7 @@ import { APP_CONFIG } from './core/config/app-config.token';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
+import { InMemoryCache, split } from '@apollo/client/core';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
@@ -22,6 +22,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideLibraryFeature } from './features/library/library.providers';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { MessageService } from 'primeng/api';
+import { createClient } from 'graphql-ws';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { Kind, OperationTypeNode } from 'graphql';
 
 const appRuntimeConfig: AppConfig = {
   useGraphQL: true,
@@ -53,10 +57,32 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
+      const ws = new GraphQLWsLink(
+        createClient({
+          url:
+            (window.location.protocol === 'https:' ? 'wss://' : 'ws://') +
+            window.location.host +
+            '/graphql',
+        })
+      );
+      const http = httpLink.create({
+        uri: '/graphql',
+      });
+
+      const link = split(
+        ({ query }) => {
+          const definition = getMainDefinition(query);
+          return (
+            definition.kind === Kind.OPERATION_DEFINITION &&
+            definition.operation === OperationTypeNode.SUBSCRIPTION
+          );
+        },
+        ws,
+        http
+      );
+
       return {
-        link: httpLink.create({
-          uri: '/graphql',
-        }),
+        link,
         cache: new InMemoryCache(),
       };
     }),

@@ -57,7 +57,9 @@ export const libraryReducer = createReducer(
   // --- Create ---
   on(LibraryActions.createLibrarySuccess, (state, { library }) => ({
     ...state,
-    libraries: [...state.libraries, library],
+    libraries: state.libraries.some((l) => l.id === library.id)
+      ? state.libraries
+      : [...state.libraries, library],
   })),
   on(LibraryActions.createLibraryFailure, (state, { error }) => ({
     ...state,
@@ -87,7 +89,9 @@ export const libraryReducer = createReducer(
   // --- Events ---
   on(LibraryActions.libraryCreated, (state, { library }) => ({
     ...state,
-    libraries: [...state.libraries, library],
+    libraries: state.libraries.some((l) => l.id === library.id)
+      ? state.libraries
+      : [...state.libraries, library],
   })),
   on(LibraryActions.libraryUpdated, (state, { library }) => ({
     ...state,

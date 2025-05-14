@@ -12,6 +12,46 @@ import { toModel, toRequest } from '../models/library.mapper';
 export class LibraryGraphqlService implements LibraryDataService {
   private readonly apollo = inject(Apollo);
 
+  created$ = this.apollo
+    .subscribe<{ onMediaLibraryAdded: LibraryResponse }>({
+      query: gql`
+        subscription {
+          onMediaLibraryAdded {
+            id
+            name
+            description
+            path
+          }
+        }
+      `,
+    })
+    .pipe(map((res) => toModel(res.data!.onMediaLibraryAdded)));
+
+  updated$ = this.apollo
+    .subscribe<{ onMediaLibraryUpdated: LibraryResponse }>({
+      query: gql`
+        subscription {
+          onMediaLibraryUpdated {
+            id
+            name
+            description
+            path
+          }
+        }
+      `,
+    })
+    .pipe(map((res) => toModel(res.data!.onMediaLibraryUpdated)));
+
+  deleted$ = this.apollo
+    .subscribe<{ onMediaLibraryDeleted: number }>({
+      query: gql`
+        subscription {
+          onMediaLibraryDeleted
+        }
+      `,
+    })
+    .pipe(map((res) => res.data!.onMediaLibraryDeleted));
+
   getAll(): Observable<Library[]> {
     return this.apollo
       .query<{ mediaLibraries: LibraryResponse[] }>({
@@ -48,7 +88,6 @@ export class LibraryGraphqlService implements LibraryDataService {
   }
 
   create(library: Library): Observable<Library> {
-    console.log('Creating library:', library);
     return this.apollo
       .mutate<{ addMediaLibrary: LibraryResponse }>({
         mutation: gql`

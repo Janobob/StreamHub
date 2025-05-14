@@ -1,10 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import {
+  catchError,
+  filter,
+  map,
+  mergeMap,
+  of,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { LibraryService } from '../services/library.service';
 import * as LibraryActions from './library.actions';
 import { MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
+import { selectAllLibraries } from './library.selectors';
 
 @Injectable()
 export class LibraryEffects {
@@ -12,6 +22,7 @@ export class LibraryEffects {
   private service = inject(LibraryService);
   private messageService = inject(MessageService);
   private translate = inject(TranslateService);
+  private store = inject(Store);
 
   loadLibraries$ = createEffect(() =>
     this.actions$.pipe(
@@ -94,6 +105,7 @@ export class LibraryEffects {
       this.actions$.pipe(
         ofType(LibraryActions.createLibrarySuccess),
         tap(({ library }) => {
+          this.messageService.clear();
           this.messageService.add({
             severity: 'success',
             summary: this.translate.instant(
@@ -163,6 +175,7 @@ export class LibraryEffects {
       this.actions$.pipe(
         ofType(LibraryActions.updateLibrarySuccess),
         tap(({ library }) => {
+          this.messageService.clear();
           this.messageService.add({
             severity: 'success',
             summary: this.translate.instant(
@@ -204,6 +217,7 @@ export class LibraryEffects {
       this.actions$.pipe(
         ofType(LibraryActions.deleteLibrarySuccess),
         tap(({ id }) => {
+          this.messageService.clear();
           this.messageService.add({
             severity: 'success',
             summary: this.translate.instant(
@@ -234,6 +248,69 @@ export class LibraryEffects {
               'libraries.messages.delete.error.detail'
             ),
             life: 5000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  created$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.libraryCreated),
+        tap(({ library }) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: this.translate.instant(
+              'libraries.messages.create.extern.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.create.extern.detail',
+              { name: library.name }
+            ),
+            life: 3000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  updated$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.libraryUpdated),
+        tap(({ library }) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: this.translate.instant(
+              'libraries.messages.update.extern.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.update.extern.detail',
+              { name: library.name }
+            ),
+            life: 3000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LibraryActions.libraryDeleted),
+        tap(({ id }) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: this.translate.instant(
+              'libraries.messages.delete.extern.title'
+            ),
+            detail: this.translate.instant(
+              'libraries.messages.delete.extern.detail',
+              { id }
+            ),
+            life: 3000,
           });
         })
       ),
