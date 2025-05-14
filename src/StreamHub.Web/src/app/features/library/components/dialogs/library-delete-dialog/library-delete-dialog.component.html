@@ -23,6 +23,8 @@
       <p-button
         label="{{ 'libraries.form.actions.delete' | translate }}"
         icon="pi pi-trash"
+        [loading]="isLoading"
+        [disabled]="isLoading"
         (onClick)="delete()"
       ></p-button>
     </div>

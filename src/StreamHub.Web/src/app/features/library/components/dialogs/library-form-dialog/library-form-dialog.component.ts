@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  effect,
+} from '@angular/core';
 import { Library } from '../../../models/library.model';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -12,6 +19,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { LibraryFacade } from '../../../library.facade';
+import { LoadingTypes } from '../../../store/library.reducer';
 
 @Component({
   standalone: true,
@@ -33,6 +42,9 @@ export class LibraryFormDialogComponent {
   @Output() createLibrary = new EventEmitter<Library>();
   @Output() updateLibrary = new EventEmitter<Library>();
 
+  private readonly facade = inject(LibraryFacade);
+  readonly loadingType = this.facade.loadingType;
+
   private fb = inject(FormBuilder);
 
   visible = false;
@@ -51,6 +63,20 @@ export class LibraryFormDialogComponent {
     ],
   });
 
+  constructor() {
+    effect(() => {
+      if (this.facade.createdSuccess()) {
+        this.close();
+        this.facade.resetCreatedSuccess();
+      }
+
+      if (this.facade.updatedSuccess()) {
+        this.close();
+        this.facade.resetUpdatedSuccess();
+      }
+    });
+  }
+
   public open(library?: Library) {
     this.visible = true;
     this.library = library;
@@ -65,6 +91,13 @@ export class LibraryFormDialogComponent {
     this.form.reset();
   }
 
+  get isLoading() {
+    return (
+      this.loadingType() === LoadingTypes.Create ||
+      this.loadingType() === LoadingTypes.Update
+    );
+  }
+
   save() {
     if (this.form.valid) {
       const updatedLibrary: Library = {
@@ -77,7 +110,6 @@ export class LibraryFormDialogComponent {
       } else {
         this.createLibrary.emit(updatedLibrary);
       }
-      this.close();
     } else {
       this.form.markAllAsTouched();
       this.form.updateValueAndValidity();

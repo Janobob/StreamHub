@@ -9,6 +9,7 @@ import { LibraryFormDialogComponent } from '../dialogs/library-form-dialog/libra
 import { Library } from '../../models/library.model';
 import { MenuItem } from 'primeng/api';
 import { LibraryDeleteDialogComponent } from '../dialogs/library-delete-dialog/library-delete-dialog.component';
+import { LoadingTypes } from '../../store/library.reducer';
 
 @Component({
   standalone: true,
@@ -29,7 +30,7 @@ export class LibrarySidebarComponent implements OnInit {
   private readonly facade = inject(LibraryFacade);
   private readonly translate = inject(TranslateService);
   readonly libraries = this.facade.libraries;
-  readonly loading = this.facade.loading;
+  readonly loadingType = this.facade.loadingType;
 
   @ViewChild(ContextMenu)
   contextMenu!: ContextMenu;
@@ -71,6 +72,10 @@ export class LibrarySidebarComponent implements OnInit {
       });
   }
 
+  get isLoading() {
+    return this.loadingType() === LoadingTypes.All;
+  }
+
   onAddLibrary() {
     this.libraryFormDialog.open();
   }
@@ -83,20 +88,17 @@ export class LibrarySidebarComponent implements OnInit {
     this.libraryDeleteDialog.open(library);
   }
 
-  onDeleteLibrary(library: Library) {
-    this.facade.delete(library.id);
-    this.libraryDeleteDialog.close();
-  }
-
   onCreateLibrary(library: Library) {
     library.id = 0; // Ensure the ID is set to 0 for new libraries
     this.facade.create(library);
-    this.libraryFormDialog.close();
   }
 
   onUpdateLibrary(library: Library) {
     this.facade.update(library);
-    this.libraryFormDialog.close();
+  }
+
+  onDeleteLibrary(library: Library) {
+    this.facade.delete(library.id);
   }
 
   onContextMenuOpen(event: MouseEvent, library: Library) {

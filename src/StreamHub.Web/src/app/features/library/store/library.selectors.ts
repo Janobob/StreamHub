@@ -14,6 +14,11 @@ export const selectSelectedLibrary = createSelector(
   (state) => state.selectedLibrary
 );
 
+export const selectLibraryLoadingType = createSelector(
+  selectLibraryState,
+  (state) => state.loadingType
+);
+
 export const selectLibraryLoading = createSelector(
   selectLibraryState,
   (state) => state.loading

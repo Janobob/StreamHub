@@ -95,6 +95,8 @@
             : ('libraries.form.actions.create' | translate)
         }}"
         icon="pi pi-save"
+        [loading]="isLoading"
+        [disabled]="isLoading"
         (onClick)="save()"
       ></p-button>
     </div>
