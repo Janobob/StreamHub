@@ -1,0 +1,116 @@
+{
+  "app": {
+    "title": "StreamHub",
+    "messages": {
+      "backendUnavailable": {
+        "title": "Verbindung fehlgeschlagen",
+        "detail": "Verbindung zum Server fehlgeschlagen. Bitte versuchen Sie es später erneut."
+      },
+      "backendAvailable": {
+        "title": "Verbindung hergestellt",
+        "detail": "Die Verbindung zum Server wurde wiederhergestellt. Bitte aktualisieren Sie die Seite, um die neuesten Daten zu laden."
+      }
+    }
+  },
+
+  "libraries": {
+    "title": "Mediatheken",
+    "home": "Startseite",
+    "model": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Geben Sie den Namen der Mediathek ein",
+        "errors": {
+          "required": "Name ist erforderlich",
+          "maxlength": "Name darf maximal {{length}} Zeichen lang sein"
+        }
+      },
+      "description": {
+        "label": "Beschreibung",
+        "placeholder": "Geben Sie eine Beschreibung der Mediathek ein",
+        "errors": {
+          "maxlength": "Beschreibung darf maximal {{length}} Zeichen lang sein"
+        }
+      },
+      "path": {
+        "label": "Pfad",
+        "placeholder": "Geben Sie den Pfad der Mediathek ein",
+        "errors": {
+          "required": "Pfad ist erforderlich",
+          "maxlength": "Pfad darf maximal {{length}} Zeichen lang sein"
+        }
+      }
+    },
+    "form": {
+      "title": {
+        "create": "Mediathek erstellen",
+        "edit": "Mediathek bearbeiten",
+        "delete": "Mediathek löschen"
+      },
+      "description": {
+        "delete": "Sind Sie sicher, dass Sie die Mediathek \"{{name}}\" löschen möchten?"
+      },
+      "actions": {
+        "create": "Erstellen",
+        "save": "Speichern",
+        "edit": "Bearbeiten",
+        "delete": "Löschen",
+        "cancel": "Abbrechen"
+      }
+    },
+    "messages": {
+      "create": {
+        "success": {
+          "title": "Mediathek erstellt",
+          "detail": "Die Mediathek \"{{name}}\" wurde erfolgreich erstellt."
+        },
+        "error": {
+          "title": "Mediathek erstellen fehlgeschlagen",
+          "detail": "Die Mediathek konnte nicht erstellt werden."
+        },
+        "extern": {
+          "title": "Neue Mediathek erkannt",
+          "detail": "Die Mediathek \"{{name}}\" wurde in einer anderen Sitzung erstellt."
+        }
+      },
+      "update": {
+        "success": {
+          "title": "Mediathek aktualisiert",
+          "detail": "Die Mediathek \"{{name}}\" wurde erfolgreich aktualisiert."
+        },
+        "error": {
+          "title": "Mediathek aktualisieren fehlgeschlagen",
+          "detail": "Die Mediathek konnte nicht aktualisiert werden."
+        },
+        "extern": {
+          "title": "Mediathek aktualisiert",
+          "detail": "Die Mediathek \"{{name}}\" wurde in einer anderen Sitzung aktualisiert."
+        }
+      },
+      "load": {
+        "error": {
+          "title": "Mediatheken laden fehlgeschlagen",
+          "detail": "Die Mediatheken konnten nicht geladen werden."
+        },
+        "backendUnavailable": {
+          "title": "Mediatheken laden fehlgeschlagen",
+          "detail": "Verbindung zum Server fehlgeschlagen. Bitte versuchen Sie es später erneut."
+        }
+      },
+      "delete": {
+        "success": {
+          "title": "Mediathek gelöscht",
+          "detail": "Die Mediathek mit Id \"{{id}}\" wurde erfolgreich gelöscht."
+        },
+        "error": {
+          "title": "Mediathek löschen fehlgeschlagen",
+          "detail": "Die Mediathek konnte nicht gelöscht werden."
+        },
+        "extern": {
+          "title": "Mediathek gelöscht",
+          "detail": "Die Mediathek mit Id \"{{id}}\" wurde in einer anderen Sitzung gelöscht."
+        }
+      }
+    }
+  }
+}

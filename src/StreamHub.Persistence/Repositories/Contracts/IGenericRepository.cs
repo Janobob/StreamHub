@@ -23,7 +23,7 @@ public interface IGenericRepository<TEntity> where TEntity : class
     ///     Adds a new entity to the repository.
     /// </summary>
     /// <param name="entity">The entity to add.</param>
-    Task AddAsync(TEntity entity);
+    Task<TEntity> AddAsync(TEntity entity);
 
     /// <summary>
     ///     Updates an existing entity in the repository.

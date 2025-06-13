@@ -1,0 +1,104 @@
+<p-dialog
+  [(visible)]="visible"
+  [draggable]="false"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+  (onHide)="close()"
+  [header]="
+    library
+      ? ('libraries.form.title.edit' | translate)
+      : ('libraries.form.title.create' | translate)
+  "
+>
+  <div class="flex flex-column justify-content-between gap-5 h-full">
+    <div [formGroup]="form" class="flex flex-column gap-4">
+      <div class="flex flex-column gap-2">
+        <label for="name">{{ "libraries.model.name.label" | translate }}</label>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          formControlName="name"
+          [placeholder]="'libraries.model.name.placeholder' | translate"
+        />
+        @if(form.get('name')?.invalid && form.get('name')?.touched &&
+        form.get('name')?.errors?.['required']){
+        <p-message severity="error" variant="simple" size="small">
+          <i class="pi pi-exclamation-triangle mr-2"></i
+          >{{ "libraries.model.name.errors.required" | translate }}
+        </p-message>
+        } @if(form.get('name')?.invalid && form.get('name')?.touched &&
+        form.get('name')?.errors?.['maxlength']) {
+        <p-message severity="error" variant="simple" size="small">
+          <i class="pi pi-exclamation-triangle mr-2"></i>
+          {{ "libraries.model.name.errors.maxlength" | translate:{ "length": form.get('name')?.errors?.['maxlength']?.requiredLength } }}
+        </p-message>
+        }
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="description">{{
+          "libraries.model.description.label" | translate
+        }}</label>
+        <textarea
+          id="description"
+          pTextarea
+          formControlName="description"
+          [placeholder]="'libraries.model.description.placeholder' | translate"
+          rows="5"
+          style="resize: vertical"
+        ></textarea>
+
+        @if(form.get('description')?.invalid && form.get('description')?.touched
+        && form.get('description')?.errors?.['maxlength']){
+        <p-message severity="error" variant="simple" size="small">
+          <i class="pi pi-exclamation-triangle mr-2"></i
+          >{{ "libraries.model.description.errors.maxlength" | translate:{ "length": form.get('description')?.errors?.['maxlength']?.requiredLength } }}
+        </p-message>
+        }
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="path">{{ "libraries.model.path.label" | translate }}</label>
+        <input
+          id="path"
+          type="text"
+          pInputText
+          formControlName="path"
+          [placeholder]="'libraries.model.path.placeholder' | translate"
+        />
+
+        @if(form.get('path')?.invalid && form.get('path')?.touched &&
+        form.get('path')?.errors?.['required']){
+        <p-message severity="error" variant="simple" size="small">
+          <i class="pi pi-exclamation-triangle mr-2"></i
+          >{{ "libraries.model.path.errors.required" | translate }}
+        </p-message>
+        } @if(form.get('path')?.invalid && form.get('path')?.touched &&
+        form.get('path')?.errors?.['maxlength']){
+        <p-message severity="error" variant="simple" size="small">
+          <i class="pi pi-exclamation-triangle mr-2"></i
+          >{{ "libraries.model.path.errors.maxlength" | translate:{ "length": form.get('path')?.errors?.['maxlength']?.requiredLength } }}
+        </p-message>
+        }
+      </div>
+    </div>
+    <div class="flex justify-content-end gap-2">
+      <p-button
+        label="{{ 'libraries.form.actions.cancel' | translate }}"
+        severity="secondary"
+        icon="pi pi-times"
+        (click)="close()"
+      />
+      <p-button
+        label="{{
+          library
+            ? ('libraries.form.actions.save' | translate)
+            : ('libraries.form.actions.create' | translate)
+        }}"
+        icon="pi pi-save"
+        [loading]="isLoading"
+        [disabled]="isLoading"
+        (onClick)="save()"
+      ></p-button>
+    </div>
+  </div>
+</p-dialog>

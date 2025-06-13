@@ -1,0 +1,90 @@
+{
+  "app": {
+    "title": "StreamHub",
+    "messages": {
+      "backendUnavailable": {
+        "title": "Connection Failed",
+        "detail": "Failed to connect to the server. Please try again later."
+      },
+      "backendAvailable": {
+        "title": "Connection Restored",
+        "detail": "The connection to the server has been restored. Please refresh the page to load the latest data."
+      }
+    }
+  },
+
+  "libraries": {
+    "title": "Libraries",
+    "home": "Home",
+    "model": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter the name of the library",
+        "errors": {
+          "required": "Name is required",
+          "maxlength": "Name must be at most {{length}} characters long"
+        }
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Enter a description of the library",
+        "errors": {
+          "maxlength": "Description must be at most {{length}} characters long"
+        }
+      },
+      "path": {
+        "label": "Path",
+        "placeholder": "Enter the path of the library",
+        "errors": {
+          "required": "Path is required",
+          "maxlength": "Path must be at most {{length}} characters long"
+        }
+      }
+    },
+    "form": {
+      "title": {
+        "create": "Create Library",
+        "edit": "Edit Library"
+      },
+      "actions": {
+        "create": "Create",
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      }
+    },
+    "messages": {
+      "create": {
+        "success": {
+          "title": "Library Created",
+          "detail": "The library \"{{name}}\" was successfully created."
+        },
+        "error": {
+          "title": "Library Creation Failed",
+          "detail": "The library could not be created."
+        }
+      },
+      "update": {
+        "success": {
+          "title": "Library Updated",
+          "detail": "The library \"{{name}}\" was successfully updated."
+        },
+        "error": {
+          "title": "Library Update Failed",
+          "detail": "The library could not be updated."
+        }
+      },
+      "load": {
+        "error": {
+          "title": "Failed to Load Libraries",
+          "detail": "The libraries could not be loaded."
+        },
+        "backendUnavailable": {
+          "title": "Failed to Load Libraries",
+          "detail": "Failed to connect to the server. Please try again later."
+        }
+      }
+    }
+  }
+}

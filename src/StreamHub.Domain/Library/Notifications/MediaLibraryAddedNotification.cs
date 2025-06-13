@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using StreamHub.Domain.Library.Models;
 
-namespace StreamHub.Domain.Library.Notifactions;
+namespace StreamHub.Domain.Library.Notifications;
 
 /// <summary>
 ///     Notification for when a media library is added.

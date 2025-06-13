@@ -28,12 +28,6 @@ public abstract class GenericRepository<TEntity>(StreamHubDbContext dbContext) :
     }
 
     /// <inheritdoc />
-    public async Task AddAsync(TEntity entity)
-    {
-        await _dbSet.AddAsync(entity);
-    }
-
-    /// <inheritdoc />
     public void Update(TEntity entity)
     {
         _dbSet.Update(entity);
@@ -57,5 +51,11 @@ public abstract class GenericRepository<TEntity>(StreamHubDbContext dbContext) :
 
         _dbSet.Remove(entity);
         return true;
+    }
+
+    /// <inheritdoc />
+    public async Task<TEntity> AddAsync(TEntity entity)
+    {
+        return (await _dbSet.AddAsync(entity)).Entity;
     }
 }

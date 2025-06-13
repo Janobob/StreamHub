@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using StreamHub.Api.Extensions;
+using StreamHub.Api.GraphQl.Mutations;
 using StreamHub.Api.GraphQl.Queries;
+using StreamHub.Api.GraphQl.Subscriptions;
+using StreamHub.Api.Hubs;
 using StreamHub.Api.Middlewares;
 using StreamHub.Api.Models;
 using StreamHub.Persistence.Contexts;
@@ -80,14 +83,26 @@ public class Startup
         // Add MediatR
         services.AddMediatRServices();
 
+        // Add SignalR
+        services.AddSignalRServices();
+
         // Add API controllers
         services.AddControllers();
 
         // Add GraphQL
         services.AddGraphQLServer()
+            .AddInMemorySubscriptions()
             .AddQueryType<Query>()
             .AddTypeExtension<MetaDataQuery>()
+            .AddTypeExtension<LibrariesQuery>()
+            .AddMutationType<Mutation>()
+            .AddTypeExtension<LibrariesMutation>()
+            .AddSubscriptionType<Subscription>()
+            .AddTypeExtension<LibrariesSubscription>()
             .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
+
+        // Health Checks
+        services.AddHealthChecks();
     }
 
     /// <summary>
@@ -110,6 +125,7 @@ public class Startup
         // Middlewares
         app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseWebSockets();
         // TODO: use Serilog or check middleware from swiss post
         app.UseMiddleware<RequestLoggingMiddleware>();
 
@@ -121,6 +137,8 @@ public class Startup
             endpoints.MapControllers();
             endpoints.MapGraphQL();
             endpoints.MapGraphQLWebSocket();
+            endpoints.MapHealthChecks("/health");
+            endpoints.MapHub<LibraryHub>("/hubs/libraries");
         });
     }
 }

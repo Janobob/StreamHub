@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace StreamHub.Domain.Library.Notifactions;
+namespace StreamHub.Domain.Library.Notifications;
 
 /// <summary>
 ///     Notification for when a media library is deleted.

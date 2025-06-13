@@ -2,7 +2,7 @@
 using MediatR;
 using StreamHub.Common.Types;
 using StreamHub.Domain.Library.Models;
-using StreamHub.Domain.Library.Notifactions;
+using StreamHub.Domain.Library.Notifications;
 using StreamHub.Domain.Library.Services.Contracts;
 using StreamHub.Persistence.Entities;
 using StreamHub.Persistence.Repositories.Contracts;
@@ -53,12 +53,12 @@ public class MediaLibraryService : IMediaLibraryService
     /// <inheritdoc />
     public async Task<Result<MediaLibrary>> AddMediaLibraryAsync(MediaLibrary mediaLibrary)
     {
-        await _repo.AddAsync(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
+        var entity = await _repo.AddAsync(_mapper.Map<MediaLibraryEntity>(mediaLibrary));
         await _repo.SaveChangesAsync();
 
-        await _mediator.Publish(new MediaLibraryAddedNotification(mediaLibrary));
+        await _mediator.Publish(new MediaLibraryAddedNotification(_mapper.Map<MediaLibrary>(entity)));
 
-        return Result<MediaLibrary>.Success(mediaLibrary);
+        return Result<MediaLibrary>.Success(_mapper.Map<MediaLibrary>(entity));
     }
 
     /// <inheritdoc />

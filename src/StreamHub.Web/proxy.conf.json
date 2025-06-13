@@ -1,0 +1,24 @@
+{
+  "/api": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/graphql": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "changeOrigin": true,
+    "ws": true
+  },
+  "/health": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/hubs": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "changeOrigin": true,
+    "ws": true
+  }
+}
