@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { map, catchError, of } from 'rxjs';
@@ -10,12 +10,9 @@ import { map, catchError, of } from 'rxjs';
 export class HealthService {
   private backendIsAvailable = true;
   private intervalId?: ReturnType<typeof setInterval>;
-
-  constructor(
-    private readonly http: HttpClient,
-    private readonly messageService: MessageService,
-    private readonly translate: TranslateService
-  ) {}
+  private readonly http = inject(HttpClient);
+  private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   /**
    * Checks if the backend is available by calling the /health endpoint.
