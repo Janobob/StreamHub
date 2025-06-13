@@ -3,7 +3,6 @@ import { LibraryService } from './library.service';
 import { LibraryGraphqlService } from './library-graphql.service';
 import { LibraryRestService } from './library-rest.service';
 import { of } from 'rxjs';
-import { AppConfig } from '../../../core/config/app-config.model';
 import { APP_CONFIG } from '../../../core/config/app-config.token';
 
 describe('LibraryService - useGraphQL = true', () => {

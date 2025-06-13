@@ -15,11 +15,11 @@ export class LibraryRestService implements LibraryDataService {
   private readonly http = inject(HttpClient);
 
   private hubConnection!: signalR.HubConnection;
-  private createdSubject = new Subject<Library>();
+  private readonly createdSubject = new Subject<Library>();
   created$ = this.createdSubject.asObservable();
-  private updatedSubject = new Subject<Library>();
+  private readonly updatedSubject = new Subject<Library>();
   updated$ = this.updatedSubject.asObservable();
-  private deletedSubject = new Subject<number>();
+  private readonly deletedSubject = new Subject<number>();
   deleted$ = this.deletedSubject.asObservable();
 
   constructor() {

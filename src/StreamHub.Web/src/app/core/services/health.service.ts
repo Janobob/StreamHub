@@ -12,9 +12,9 @@ export class HealthService {
   private intervalId?: ReturnType<typeof setInterval>;
 
   constructor(
-    private http: HttpClient,
-    private messageService: MessageService,
-    private translate: TranslateService
+    private readonly http: HttpClient,
+    private readonly messageService: MessageService,
+    private readonly translate: TranslateService
   ) {}
 
   /**

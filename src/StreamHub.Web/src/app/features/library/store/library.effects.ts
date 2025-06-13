@@ -1,28 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  filter,
-  map,
-  mergeMap,
-  of,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { LibraryService } from '../services/library.service';
 import * as LibraryActions from './library.actions';
 import { MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
-import { selectAllLibraries } from './library.selectors';
 
 @Injectable()
 export class LibraryEffects {
-  private actions$ = inject(Actions);
-  private service = inject(LibraryService);
-  private messageService = inject(MessageService);
-  private translate = inject(TranslateService);
-  private store = inject(Store);
+  private readonly actions$ = inject(Actions);
+  private readonly service = inject(LibraryService);
+  private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   loadLibraries$ = createEffect(() =>
     this.actions$.pipe(

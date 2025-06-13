@@ -26,7 +26,6 @@ import { LoadingTypes } from '../../../store/library.reducer';
   standalone: true,
   selector: 'app-library-form-dialog',
   templateUrl: './library-form-dialog.component.html',
-  styleUrls: ['./library-form-dialog.component.css'],
   imports: [
     ButtonModule,
     DialogModule,
@@ -43,9 +42,9 @@ export class LibraryFormDialogComponent {
   @Output() updateLibrary = new EventEmitter<Library>();
 
   private readonly facade = inject(LibraryFacade);
-  readonly loadingType = this.facade.loadingType;
+  private readonly loadingType = this.facade.loadingType;
 
-  private fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
 
   visible = false;
   form: FormGroup = this.fb.group({

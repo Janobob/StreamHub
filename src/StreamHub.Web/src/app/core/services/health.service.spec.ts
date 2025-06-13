@@ -1,12 +1,10 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { HealthService } from './health.service';
 
 describe('Service: Health', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HealthService]
+      providers: [HealthService],
     });
   });
 

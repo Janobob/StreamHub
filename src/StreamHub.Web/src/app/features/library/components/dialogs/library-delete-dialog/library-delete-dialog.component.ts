@@ -17,7 +17,6 @@ import { LoadingTypes } from '../../../store/library.reducer';
   standalone: true,
   selector: 'app-library-delete-dialog',
   templateUrl: './library-delete-dialog.component.html',
-  styleUrls: ['./library-delete-dialog.component.css'],
   imports: [DialogModule, ButtonModule, TranslateModule],
 })
 export class LibraryDeleteDialogComponent {

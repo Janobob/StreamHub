@@ -1,19 +1,14 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LibraryDeleteDialogComponent } from './library-delete-dialog.component';
 
 describe('LibraryDeleteDialogComponent', () => {
   let component: LibraryDeleteDialogComponent;
   let fixture: ComponentFixture<LibraryDeleteDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LibraryDeleteDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LibraryDeleteDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

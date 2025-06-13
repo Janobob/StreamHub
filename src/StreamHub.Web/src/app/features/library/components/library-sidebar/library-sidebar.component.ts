@@ -15,7 +15,6 @@ import { LoadingTypes } from '../../store/library.reducer';
   standalone: true,
   selector: 'app-library-sidebar',
   templateUrl: './library-sidebar.component.html',
-  styleUrls: ['./library-sidebar.component.css'],
   imports: [
     ButtonModule,
     SkeletonModule,
