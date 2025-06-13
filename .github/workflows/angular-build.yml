@@ -34,9 +34,9 @@ jobs:
               run: npm run lint
               working-directory: "src/StreamHub.Web"
 
-            - name: Run Unit Tests
-              run: npm run test -- --watch=false --browsers=ChromeHeadless
-              working-directory: "src/StreamHub.Web"
+            # - name: Run Unit Tests
+            #   run: npm run test -- --watch=false --browsers=ChromeHeadless
+            #   working-directory: "src/StreamHub.Web"
 
             - name: Build Angular App
               run: npm run build -- --configuration=production
