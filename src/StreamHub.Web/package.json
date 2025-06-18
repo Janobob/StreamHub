@@ -12,14 +12,14 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.2.5",
-    "@angular/common": "^19.2.5",
-    "@angular/compiler": "^19.2.5",
-    "@angular/core": "^19.2.5",
-    "@angular/forms": "^19.2.5",
-    "@angular/platform-browser": "^19.2.5",
-    "@angular/platform-browser-dynamic": "^19.2.5",
-    "@angular/router": "^19.2.5",
+    "@angular/animations": "^20.0.3",
+    "@angular/common": "^20.0.3",
+    "@angular/compiler": "^20.0.3",
+    "@angular/core": "^20.0.3",
+    "@angular/forms": "^20.0.3",
+    "@angular/platform-browser": "^20.0.3",
+    "@angular/platform-browser-dynamic": "^20.0.3",
+    "@angular/router": "^20.0.3",
     "@apollo/client": "^3.0.0",
     "@microsoft/signalr": "^8.0.7",
     "@ngrx/effects": "^19.1.0",
@@ -39,10 +39,33 @@
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
+  "overrides": {
+    "@ngrx/store": {
+      "@angular/core": "$@angular/core",
+      "@angular/common": "$@angular/common"
+    },
+    "@ngrx/effects": {
+      "@angular/core": "$@angular/core",
+      "@angular/common": "$@angular/common"
+    },
+    "@ngrx/store-devtools": {
+      "@angular/core": "$@angular/core",
+      "@angular/common": "$@angular/common"
+    },
+    "primeng": {
+      "@angular/core": "$@angular/core",
+      "@angular/common": "$@angular/common",
+      "@angular/animations": "$@angular/animations",
+      "@angular/forms": "$@angular/forms",
+      "@angular/platform-browser": "$@angular/platform-browser",
+      "@angular/platform-browser-dynamic": "$@angular/platform-browser-dynamic",
+      "@angular/router": "$@angular/router"
+    }
+  },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.6",
-    "@angular/cli": "^19.2.6",
-    "@angular/compiler-cli": "^19.2.5",
+    "@angular/build": "^20.0.2",
+    "@angular/cli": "^20.0.2",
+    "@angular/compiler-cli": "^20.0.3",
     "@types/jasmine": "~5.1.7",
     "angular-eslint": "20.1.0",
     "eslint": "^9.23.0",
