@@ -18,7 +18,10 @@ import { InMemoryCache, split } from '@apollo/client/core';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {
+  provideTranslateHttpLoader,
+  TranslateHttpLoader,
+} from '@ngx-translate/http-loader';
 import { provideLibraryFeature } from './features/library/library.providers';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { MessageService } from 'primeng/api';
@@ -31,10 +34,6 @@ const appRuntimeConfig: AppConfig = {
   useGraphQL: true,
   healthCheckInterval: 60000, // 1 minute
 };
-
-const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
-  http: HttpClient
-) => new TranslateHttpLoader(http, './i18n/', '.json');
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -90,12 +89,11 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects(),
     provideTranslateService({
-      defaultLanguage: 'de',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient],
-      },
+      fallbackLang: 'de',
+      loader: provideTranslateHttpLoader({
+        prefix: './i18n/',
+        suffix: '.json',
+      }),
     }),
     // features
     provideLibraryFeature(),
