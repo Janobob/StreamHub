@@ -81,7 +81,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddLibraryServices(this IServiceCollection services)
     {
         services.AddScoped<IMediaLibraryService, MediaLibraryService>();
-        services.AddAutoMapper(typeof(LibraryMappingProfile));
+        services.AddAutoMapper(cfg => cfg.LicenseKey = "", typeof(LibraryMappingProfile));
 
         return services;
     }

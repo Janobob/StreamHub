@@ -74,7 +74,7 @@ public class Startup
         services.AddRepositories();
 
         // Add AutoMapper
-        services.AddAutoMapper(typeof(MappingProfile));
+        services.AddAutoMapper(cfg => cfg.LicenseKey = "", typeof(MappingProfile));
 
         // Add Features
         services.AddMetadataProvidersAndServices();
